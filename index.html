@@ -20,7 +20,18 @@
 	
 		(function (){
 			window.addEventListener('load', function () {
-				alert("HI");
+				
+				d3.xml('svg/logo_yr.svg', 'image/svg+xml', function (xml) {
+					document.body.appendChild(xml.documentElement);
+				});
+				
+				d3.select("body")
+				.style("background-color", "blue")
+				.transition()
+				.duration(1000)
+				.style("background-color", "red");
+				
+				
 			});
 		})();
 		
@@ -29,7 +40,17 @@
 </head>
 <body>
 	
-	YR PROTOTYPE
+	<div id="container">
+		<header>
+        	<div id="hamburger">
+	        	<a href="index.html">
+		        	SVG
+	        	</a>
+	        </div>
+    	</header>
+	</div>
 	
 </body>
 </html>
+
+
