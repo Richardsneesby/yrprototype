@@ -44,6 +44,8 @@ body {
 }
 input[type="text"], input[type="search"] {
 	float: left;
+	margin:0;
+	padding:0;
 	-webkit-appearance: none;
 	color:#5a544f;
 	font-size: 1.2em;
@@ -72,6 +74,15 @@ input[type="text"], input[type="search"] {
 input:focus[type="text"], input:focus[type="search"] {
 	padding-left:0px;
 	background-image: none;
+}
+.concept-holder {
+	float:left;
+	max-width: 320px;
+	width:320px;
+}
+.concept-holder img {
+	max-width: 320px;
+	width:320px;
 }
 
 
