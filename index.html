@@ -77,6 +77,24 @@
 				var geoCancel = document.getElementById("geoCancel");
 				geoCancel.addEventListener("click", geoSearchFunc, false);
 				
+				var rootPath = "images/";
+				var pageArr = ["con_shortterm1.png","con_shortterm2.png"];
+				var pageIndex = 0;
+				
+				var swapPage = function() {
+					d3.select("#page-concept-view")
+					.style("opacity", "0")
+					.attr("src", rootPath+pageArr[pageIndex])
+					.transition()
+					.duration(200)
+					.style("opacity", "1");
+					pageIndex = pageIndex+1;
+					if(pageIndex >= pageArr.length){ pageIndex = 0; }
+				}
+				
+				var conceptPrognosis = document.getElementById("concept-prognosis");
+				conceptPrognosis.addEventListener("click", swapPage, false);
+				
 				/*
 				d3.select("body")
 				.style("background-color", "blue")
@@ -165,7 +183,7 @@
 			
 	    	<div id="concept-prognosis" class="concept-holder">
 		    	<!--<img src="images/con_shortterm1.png"/>-->
-		    	<img src="images/con_shortterm2.png"/>
+		    	<img id="page-concept-view" src="images/con_shortterm2.png"/>
 			</div>
 			
     	</div>
