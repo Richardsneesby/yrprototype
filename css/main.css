@@ -3,6 +3,19 @@ body {
 	padding:0;
 	font-family: "Helvetica Neue", Arial, "sans serif";
 	font-size: 12px;
+	color:#5a544f;
+}
+a {
+	color:#007fa9;
+	text-decoration: none;
+}
+a:hover {
+	color:#0099cc;
+	text-decoration: none;
+}
+a:visited {
+	color:#007fa9;
+	text-decoration: none;
 }
 /* =Clearfix by Nicolas Gallagher
 -------------------------------------------------------------- */
@@ -28,11 +41,10 @@ body {
 	float:right;
 }
 #ico_geonav-container {
-	width: 18px;
-	height: 18px;
+	width: 40px;
+	height: 48px;
 	float:left;
-	margin-top: 15px;
-	margin-left: -26px;
+	margin-left: -36px;
 }
 #page-content {
 	
@@ -43,7 +55,7 @@ body {
 	background-color: #e6e6e6;
 }
 input[type="text"], input[type="search"] {
-	float: left;
+	float:left;
 	margin:0;
 	padding:0;
 	-webkit-appearance: none;
@@ -75,6 +87,8 @@ input:focus[type="text"], input:focus[type="search"] {
 	padding-left:0px;
 	background-image: none;
 }
+
+/* CONCEPT DUMMIES */
 .concept-holder {
 	float:left;
 	max-width: 320px;
@@ -83,6 +97,16 @@ input:focus[type="text"], input:focus[type="search"] {
 .concept-holder img {
 	max-width: 320px;
 	width:320px;
+}
+#concept-overlays {
+	width:320px;
+}
+.geo-searching-msg {
+	font-weight: 200;
+	padding-top: 20px;
+	font-size: 1.2em;
+	text-align: center;
+	font-style: italic;
 }
 
 

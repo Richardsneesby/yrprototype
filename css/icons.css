@@ -14,6 +14,15 @@
 	fill: #FFFFFF;
 }
 .icon-ico_geonav {
+	margin-top:15px;
+	margin-left:11px;
+	width: 18px;
+	height: 18px;
+	fill: #007fa9;
+}
+.icon-geo_loader {
+	margin-top:15px;
+	margin-left:11px;
 	width: 18px;
 	height: 18px;
 	fill: #007fa9;

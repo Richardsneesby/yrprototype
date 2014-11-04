@@ -37,6 +37,46 @@
 				var searchField = document.getElementById("freetextSearchInput");
 				searchField.addEventListener("click", searchClicked, false);
 				
+				var geoSearching = false;
+				var interval1 = null;
+				var geoSearchFunc = function () {
+					if(geoSearching == false){
+						d3.select(".icon-ico_geonav").style("display", "none");
+						d3.select(".icon-geo_loader").style("display", "block");
+						d3.select("#concept-prognosis").style("display", "none");
+						d3.select(".geo-searching-msg").style("display", "block");
+						d3.select("#overlay-geoResults").style("display", "none");
+						interval1 = setInterval(showGeoResults, 1000);
+						geoSearching = true;
+					} else {
+						d3.select(".icon-ico_geonav").style("display", "block");
+						d3.select(".icon-geo_loader").style("display", "none");
+						d3.select("#concept-prognosis").style("display", "block");
+						d3.select(".geo-searching-msg").style("display", "none");
+						d3.select("#overlay-geoResults").style("display", "none");
+						clearInterval(interval1);
+						geoSearching = false;
+					}
+				}
+				var showGeoResults = function() {
+					d3.select(".geo-searching-msg").style("display", "none");
+					d3.select("#overlay-geoResults")
+					.style("opacity", "0")
+					.style("display", "block")
+					.transition()
+					.duration(1000)
+					.style("opacity", "1");
+					d3.select(".icon-ico_geonav").style("display", "block");
+					d3.select(".icon-geo_loader").style("display", "none");
+					geoSearching = false;
+					clearInterval(interval1);
+				}
+				
+				var geoSearch = document.getElementById("geosearch-container");
+				geoSearch.addEventListener("click", geoSearchFunc, false);
+				var geoCancel = document.getElementById("geoCancel");
+				geoCancel.addEventListener("click", geoSearchFunc, false);
+				
 				/*
 				d3.select("body")
 				.style("background-color", "blue")
@@ -72,6 +112,20 @@
 	<path class="path1" d="M1563.989 807.868c-40.277-43.486-104.311-130.799-104.311-130.799 56.525-15.906 107.179-44.851 147.456-85.47 64.717-64.512 99.874-155.989 99.533-254.43 0.819-102.263-43.895-194.15-114.551-251.699-70.315-58.231-161.109-85.265-255.659-85.47h-166.366c-156.331 0.341-282.624 127.249-282.965 283.921v700.894h188.757v-198.656c0.137-51.405 43.008-94.549 94.345-94.686h75.298l216.883 266.923c15.36 14.746 35.499 24.508 58.027 26.419v0.137h4.096c1.365 0 2.594 0.205 3.959 0.205s2.526-0.205 3.891-0.205h111.616l0.341-153.054c0 0-46.080 12.971-80.35-24.030v0zM1353.523 502.238h-183.433c-33.109 0-64.853 13.517-94.413 24.166v-242.347c0.205-51.337 43.008-94.481 94.413-94.686h166.366c58.914 0 106.018 17.34 135.168 41.779 28.877 25.19 45.261 54.477 46.285 106.018-0.341 55.296-17.954 93.662-44.237 120.559-26.761 26.556-64.853 44.169-120.149 44.51v0z" />
 	<path class="path2" d="M764.587 30.515h-186.573l-0.137 305.971c-3.618 114.074-109.909 151.006-194.765 152.235-96.87-1.365-199.134-55.296-199.134-203.435v-254.771h-183.979v254.771c0 115.575 39.936 214.357 115.166 285.628 68.267 64.58 161.792 100.693 264.055 102.4h7.509c68.608-1.229 169.438-46.080 189.099-85.811v84.241c0 111.684-141.653 184.593-179.678 203.776l2.731 3.277c-1.024 0.478-1.911 0.819-2.731 1.365l118.579 143.838c68.608-40.209 248.969-120.354 249.856-372.941v-620.544z" />
 </symbol>
+
+<symbol id="icon-geo_loader" viewBox="0 0 50 50">
+	<title>geo_loader</title>
+	<path fill="#0099cc" d="M43.935,25.145c0-10.318-8.364-18.683-18.683-18.683c-10.318,0-18.683,8.365-18.683,18.683h4.068c0-8.071,6.543-14.615,14.615-14.615c8.072,0,14.615,6.543,14.615,14.615H43.935z">
+		<animateTransform attributeType="xml"
+		attributeName="transform"
+		type="rotate"
+		from="0 25 25"
+		to="360 25 25"
+		dur="0.6s"
+		repeatCount="indefinite"/>
+		</path>
+</symbol>
+
 </defs>
 </svg>
 	
@@ -88,14 +142,27 @@
 	        </a>
     	</header>
     	
-    	<div id="page-content" style="height:900px;">
+    	<div id="page-content">
 	    	<div class="search-grey-bg clearfix">
 		    	<input id="freetextSearchInput" placeholder="Søk sted" class="freetext-search__input" type="search" name="q" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" aria-controls="suggestionBox" data-reactid=".1.0.0.1">
-		    	<div id="ico_geonav-container">
-		        	<svg class="icon icon-ico_geonav"><use xlink:href="#icon-ico_geonav"></use></svg>
+		    	<div id="geosearch-container">
+			    	<div id="ico_geonav-container">
+			        	<svg class="icon icon-ico_geonav"><use xlink:href="#icon-ico_geonav"></use></svg>
+			        	<svg class="icon icon-geo_loader" style="display: none;"><use xlink:href="#icon-geo_loader"></use></svg>
+			        </div>
 		        </div>
 	    	</div>
-	    	
+			
+			<div id="concept-overlays">
+				<div class="geo-searching-msg" style="display: none;">
+					<p>Searching places nearby..</p>
+					<a id="geoCancel" href="#">Cancel</a>
+				</div>
+				<div id="overlay-geoResults" class="concept-holder" style="display: none;">
+					<img src="images/overlay_georesults.png"/>
+				</div>
+			</div>
+			
 	    	<div id="concept-prognosis" class="concept-holder">
 		    	<img src="images/con_shortterm1.png"/>
 		    	<img src="images/con_shortterm2.png"/>
