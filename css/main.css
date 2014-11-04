@@ -102,9 +102,9 @@ input:focus[type="text"], input:focus[type="search"] {
 	width:320px;
 }
 .geo-searching-msg {
-	font-weight: 200;
+	font-weight: 300;
 	padding-top: 20px;
-	font-size: 1.2em;
+	font-size: 1.4em;
 	text-align: center;
 	font-style: italic;
 }
