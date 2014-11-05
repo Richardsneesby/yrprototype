@@ -23,9 +23,26 @@
 			window.addEventListener('load', function () {
 				
 				var searchClicked = function () {
-					 d3.transition()
+					d3.select("#freetextSearchInput")
+					.transition()
+					.duration(200)
+					.style("width", "310px");
+					d3.transition()
 					.duration(200)
 					.tween("scroll", scrollTween(48));
+					d3.select(".icon-ico_geonav").style("display", "none");
+					d3.select(".icon-geo_loader").style("display", "none");
+				}
+				var searchBlur = function () {
+					d3.select("#freetextSearchInput")
+					.transition()
+					.duration(200)
+					.style("width", "268px");
+					d3.transition()
+					.duration(200)
+					.tween("scroll", scrollTween(0));
+					d3.select(".icon-ico_geonav").style("display", "block");
+					d3.select(".icon-geo_loader").style("display", "none");
 				}
 				function scrollTween(offset) {
 					return function() {
@@ -36,6 +53,7 @@
 				
 				var searchField = document.getElementById("freetextSearchInput");
 				searchField.addEventListener("click", searchClicked, false);
+				searchField.addEventListener("blur", searchBlur, false);
 				
 				var geoSearching = false;
 				var interval1 = null;
