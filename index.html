@@ -32,6 +32,8 @@
 					.tween("scroll", scrollTween(48));
 					d3.select(".icon-ico_geonav").style("display", "none");
 					d3.select(".icon-geo_loader").style("display", "none");
+					d3.select("#concept-prognosis").style("display", "none");
+					d3.select("#overlay-geoResults").style("display", "none");
 				}
 				var searchBlur = function () {
 					d3.select("#freetextSearchInput")
@@ -43,6 +45,8 @@
 					.tween("scroll", scrollTween(0));
 					d3.select(".icon-ico_geonav").style("display", "block");
 					d3.select(".icon-geo_loader").style("display", "none");
+					d3.select("#concept-prognosis").style("display", "block");
+					d3.select("#overlay-geoResults").style("display", "none");
 				}
 				function scrollTween(offset) {
 					return function() {
