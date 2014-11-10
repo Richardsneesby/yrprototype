@@ -96,6 +96,7 @@ input:focus[type="text"], input:focus[type="search"] {
 	float:left;
 	max-width: 320px;
 	width:320px;
+	min-height: 800px;
 }
 .concept-holder img {
 	max-width: 320px;
