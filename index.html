@@ -116,16 +116,32 @@
 					if(pageIndex >= pageArr.length){ pageIndex = 0; }
 				}
 				
-				var conceptPrognosis = document.getElementById("concept-prognosis");
-				conceptPrognosis.addEventListener("click", swapPage, false);
+				//var conceptPrognosis = document.getElementById("concept-prognosis");
+				//conceptPrognosis.addEventListener("click", swapPage, false);
 				
-				/*
-				d3.select("body")
-				.style("background-color", "blue")
-				.transition()
-				.duration(1000)
-				.style("background-color", "red");
-				*/
+				// Toggle from short to long term
+				var Longterm = false;
+				var toggleView = function() {
+					if(Longterm == false){
+						d3.select("#table-swap-container").style("display", "none");
+						d3.select("#weather-table-container").style("display", "block");
+						d3.transition()
+						.duration(200)
+						.tween("scroll", scrollTween(100));
+						Longterm = true;
+					} else {
+						d3.select("#table-swap-container").style("display", "block");
+						d3.select("#weather-table-container").style("display", "none");
+						Longterm = false;
+					}
+				}
+				
+				var tableSwapContainer = document.getElementById("table-swap-container");
+				var weatherTableContainer = document.getElementById("weather-table-container");
+				var weatherTitle = document.getElementById("weather-long-title");
+				tableSwapContainer.addEventListener("click", toggleView, false);
+				weatherTitle.addEventListener("click", toggleView, false);
+				
 				
 			});
 		})();
@@ -206,7 +222,20 @@
 			</div>
 			
 	    	<div id="concept-prognosis" class="concept-holder">
-		    	<img id="page-concept-view" src="images/con_shortterm4.png"/>
+		    	<img id="page-concept-view" src="images/place_title.png"/>
+		    	<div id="table-swap-container">
+			    	<img id="page-concept-view" src="images/short_alert_1.png"/>
+			    </div>
+			    <div id="weather-table-container">
+					<div id="weather-long-title" class="weather-table-title">
+						<img width="310" id="weather-long-title" src="images/longterm_title.png"/>
+					</div>
+					<div class="weather-table">
+						<img height="400" width="780" id="weatherlong-view" src="images/con_longterm1.png"/>
+					</div>
+				</div>
+		    	<img id="page-concept-view" src="images/short_alert_2.png"/>
+		    	<img id="page-concept-view" src="images/short_alerts.png"/>
 			</div>
 			
     	</div>

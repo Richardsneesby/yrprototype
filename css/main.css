@@ -4,6 +4,7 @@ body {
 	font-family: "Helvetica Neue", Arial, "sans serif";
 	font-size: 12px;
 	color:#5a544f;
+	background-color: #cccccc;
 }
 a {
 	color:#007fa9;
@@ -99,6 +100,9 @@ input:focus[type="text"], input:focus[type="search"] {
 	min-height: 800px;
 }
 .concept-holder img {
+	float:left;
+	padding:0;
+	margin:0;
 	max-width: 320px;
 	width:320px;
 }
@@ -111,6 +115,47 @@ input:focus[type="text"], input:focus[type="search"] {
 	font-size: 1.4em;
 	text-align: center;
 	font-style: italic;
+}
+
+/* HOUR BY HOUR */
+#table-swap-container, #weather-table-container, .weather-table-title, .weather-table-title img {
+	float:left;
+	padding:0;
+	margin:0;
+}
+#weather-table-container {
+	display:none;
+	margin-left: 5px;
+	margin-bottom: 10px;
+	/*-webkit-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.3);
+	-moz-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.3);
+	box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.3);*/
+}
+.weather-table-title img {
+	float:left;
+	padding:0;
+	margin:0;
+	max-width: 310px;
+	width:310px;
+}
+.weather-table {
+	float:left;
+	padding:0;
+	margin:0;
+	display: flex;
+	position: relative;
+	white-space: nowrap;
+	width: 310px;
+	height: 400px;
+	overflow-x: auto;
+	overflow-y: hidden;
+}
+.weather-table img {
+	float:left;
+	padding:0;
+	margin:0;
+	max-width: 780px;
+	width:780px;
 }
 
 
