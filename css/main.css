@@ -147,8 +147,9 @@ input:focus[type="text"], input:focus[type="search"] {
 	white-space: nowrap;
 	width: 310px;
 	height: 400px;
-	overflow-x: auto;
+	overflow-x: scroll;
 	overflow-y: hidden;
+	-webkit-overflow-scrolling: touch;
 }
 .weather-table img {
 	float:left;
