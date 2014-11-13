@@ -142,7 +142,7 @@ input:focus[type="text"], input:focus[type="search"] {
 	float:left;
 	padding:0;
 	margin:0;
-	display: flex;
+	/*display: flex;*/
 	position: relative;
 	white-space: nowrap;
 	width: 310px;
