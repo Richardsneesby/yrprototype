@@ -155,8 +155,8 @@ input:focus[type="text"], input:focus[type="search"] {
 	float:left;
 	padding:0;
 	margin:0;
-	max-width: 780px;
-	width:780px;
+	max-width: 1440px;
+	width:1440px;
 }
 
 
