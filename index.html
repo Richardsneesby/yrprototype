@@ -22,34 +22,6 @@
 		(function (){
 			window.addEventListener('load', function () {
 				
-				var searchClicked = function () {
-					d3.select("#freetextSearchInput")
-					.transition()
-					.duration(200)
-					.style("width", "310px");
-					d3.transition()
-					.duration(200)
-					.tween("scroll", scrollTween(48));
-					d3.select(".icon-ico_geonav").style("display", "none");
-					d3.select(".icon-geo_loader").style("display", "none");
-					d3.select("#concept-prognosis").style("opacity", 0);
-					d3.select("#overlay-geoResults").style("opacity", 0);
-				}
-				var searchBlur = function () {
-					d3.select("#freetextSearchInput")
-					.transition()
-					.duration(200)
-					.style("width", "268px");
-					d3.transition()
-					.duration(200)
-					.tween("scroll", scrollTween(0));
-					d3.select(".icon-ico_geonav").style("display", "block");
-					d3.select(".icon-geo_loader").style("display", "none");
-					d3.select("#concept-prognosis").style("opacity", 100);
-					d3.select("#concept-prognosis").style("display", "block");
-					d3.select("#overlay-geoResults").style("display", "none");
-					d3.select("#overlay-geoResults").style("opacity", 100);
-				}
 				function scrollTween(offset) {
 					return function() {
 						var i = d3.interpolateNumber(window.pageYOffset || document.documentElement.scrollTop, offset);
@@ -57,52 +29,8 @@
 					};
 				}
 				
-				var searchField = document.getElementById("freetextSearchInput");
-				searchField.addEventListener("click", searchClicked, false);
-				searchField.addEventListener("blur", searchBlur, false);
-				
-				var geoSearching = false;
-				var interval1 = null;
-				var geoSearchFunc = function () {
-					if(geoSearching == false){
-						d3.select(".icon-ico_geonav").style("display", "none");
-						d3.select(".icon-geo_loader").style("display", "block");
-						d3.select("#concept-prognosis").style("display", "none");
-						d3.select(".geo-searching-msg").style("display", "block");
-						d3.select("#overlay-geoResults").style("display", "none");
-						interval1 = setInterval(showGeoResults, 1000);
-						geoSearching = true;
-					} else {
-						d3.select(".icon-ico_geonav").style("display", "block");
-						d3.select(".icon-geo_loader").style("display", "none");
-						d3.select("#concept-prognosis").style("display", "block");
-						d3.select(".geo-searching-msg").style("display", "none");
-						d3.select("#overlay-geoResults").style("display", "none");
-						clearInterval(interval1);
-						geoSearching = false;
-					}
-				}
-				var showGeoResults = function() {
-					d3.select(".geo-searching-msg").style("display", "none");
-					d3.select("#overlay-geoResults")
-					.style("opacity", "0")
-					.style("display", "block")
-					.transition()
-					.duration(1000)
-					.style("opacity", "1");
-					d3.select(".icon-ico_geonav").style("display", "block");
-					d3.select(".icon-geo_loader").style("display", "none");
-					geoSearching = false;
-					clearInterval(interval1);
-				}
-				
-				var geoSearch = document.getElementById("geosearch-container");
-				geoSearch.addEventListener("click", geoSearchFunc, false);
-				var geoCancel = document.getElementById("geoCancel");
-				geoCancel.addEventListener("click", geoSearchFunc, false);
-				
 				var rootPath = "images/";
-				var pageArr = ["con_shortterm5.png","con_shortterm4.png"];
+				var pageArr = ["con_page2.png","con_page1.png"];
 				var pageIndex = 0;
 				
 				var swapPage = function() {
@@ -116,8 +44,8 @@
 					if(pageIndex >= pageArr.length){ pageIndex = 0; }
 				}
 				
-				//var conceptPrognosis = document.getElementById("concept-prognosis");
-				//conceptPrognosis.addEventListener("click", swapPage, false);
+				var conceptPrognosis = document.getElementById("concept-prognosis");
+				conceptPrognosis.addEventListener("click", swapPage, false);
 				
 				// Toggle from short to long term
 				var Longterm = false;
@@ -149,7 +77,7 @@
 	</script>
 	
 </head>
-<body>
+<body style="background-color: #E6E6E6;">
 	
 <svg display="none" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 <defs>
@@ -198,44 +126,15 @@
 	        <a id="ico_cog-container" href="#">
 	        	<svg class="icon icon-ico_cog"><use xlink:href="#icon-ico_cog"></use></svg>
 	        </a>
+	        <a id="ico_cog-container" href="#">
+	        	<svg class="icon icon-ico_cog"><use xlink:href="#icon-ico_search"></use></svg>
+	        </a>
     	</header>
     	
     	<div id="page-content">
-	    	<div class="search-grey-bg clearfix">
-		    	<input id="freetextSearchInput" placeholder="Søk sted" class="freetext-search__input" type="search" name="q" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" aria-controls="suggestionBox" data-reactid=".1.0.0.1">
-		    	<div id="geosearch-container">
-			    	<div id="ico_geonav-container">
-			        	<svg class="icon icon-ico_geonav"><use xlink:href="#icon-ico_geonav"></use></svg>
-			        	<svg class="icon icon-geo_loader" style="display: none;"><use xlink:href="#icon-geo_loader"></use></svg>
-			        </div>
-		        </div>
-	    	</div>
-			
-			<div id="concept-overlays">
-				<div class="geo-searching-msg" style="display: none;">
-					<p>Searching places nearby..</p>
-					<a id="geoCancel" href="#">Cancel</a>
-				</div>
-				<div id="overlay-geoResults" class="concept-holder" style="display: none;">
-					<img src="images/overlay_georesults.png"/>
-				</div>
-			</div>
 			
 	    	<div id="concept-prognosis" class="concept-holder">
-		    	<img id="page-concept-view" src="images/place_title.png"/>
-		    	<div id="table-swap-container">
-			    	<img id="page-concept-view" src="images/short_alert_1.png"/>
-			    </div>
-			    <div id="weather-table-container">
-					<div id="weather-long-title" class="weather-table-title">
-						<img width="310" id="weather-long-title" src="images/longterm_title.png"/>
-					</div>
-					<div class="weather-table">
-						<img height="350" width="780" id="weatherlong-view" src="images/con_longterm1.png"/>
-					</div>
-				</div>
-		    	<img id="page-concept-view" src="images/short_alert_2.png"/>
-		    	<img id="page-concept-view" src="images/short_alerts.png"/>
+		    	<img id="page-concept-view" src="images/con_page1.png"/>
 			</div>
 			
     	</div>
