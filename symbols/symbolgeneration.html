@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en" class="no-js">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"/>
+	<meta name="apple-mobile-web-app-capable" content="yes">
+
+	<link rel="stylesheet" href="css/main.css">
+	
+	<script src="js/d3.min.js"></script>
+  	
+	<title>symbol generation</title>
+	<meta name="description" content="yr prototype">
+	<meta name="author" content="Richard Park Sneesby">
+	<meta name="keywords" content="yr prototype">
+	
+	<script type="text/javascript">
+	
+		(function (){
+			window.addEventListener('load', function () {
+				var json = {
+					"morning":{
+						"symbols":		[0,1,0,0,0,1],
+						"density":		[10,15,25,40,35,30],
+						"probability":	[0,10,0,0,10,20],
+						"rainMin":		[0,0,0,0,0,0],
+						"rainMax":		[0,0.2,0,0,0,0.3],
+						"dewPoint":		[0,0.2,0,0,0,0.1]
+					},
+					"afternoon":{
+						"symbols":		[0,1,0,0,0,1],
+						"density":		[10,15,25,40,35,30],
+						"probability":	[0,10,0,0,10,20],
+						"rainMin":		[0,0,0,0,0,0],
+						"rainMax":		[0,0.2,0,0,0,0.3],
+						"dewPoint":		[0,0.2,0,0,0,0.1]
+					},
+					"evening":{
+						"symbols":		[0,1,0,0,0,1],
+						"density":		[10,15,25,40,35,30],
+						"probability":	[0,10,0,0,10,20],
+						"rainMin":		[0,0,0,0,0,0],
+						"rainMax":		[0,0.2,0,0,0,0.3],
+						"dewPoint":		[0,0.2,0,0,0,0.1]
+					},
+					"night":{
+						"symbols":		[0,1,0,0,0,1],
+						"density":		[10,15,25,40,35,30],
+						"probability":	[0,10,0,0,10,20],
+						"rainMin":		[0,0,0,0,0,0],
+						"rainMax":		[0,0.2,0,0,0,0.3],
+						"dewPoint":		[0,0.2,0,0,0,0.1]
+					}
+				}
+				
+				var ContainerWidth = 320;
+				var Columns = 4;
+				var ColumnWidth = 80;
+				var HourlyIntervals = 6;
+				var HourWidth = 13;
+				
+				function calculateWidths(data){
+					kyz = Object.keys(data);
+					Columns = kyz.length;
+					ColumnWidth = Math.floor(ContainerWidth/Columns);
+					HourlyIntervals = data[kyz[0]].symbols.length;
+					HourWidth = Math.floor(ColumnWidth/HourlyIntervals);
+					drawCanvasContainers();
+				}
+				
+				function drawCanvasContainers(){
+					//
+				}
+				
+				calculateWidths(json);
+				
+			});
+		})();
+		
+	</script>
+	
+</head>
+<body>
+	
+	<div class="container">
+		<canvas class="can_column"></canvas>
+		<canvas class="can_column"></canvas>
+		<canvas class="can_column"></canvas>
+		<canvas class="can_column"></canvas>
+	</div>
+	
+</body>
+</html>
+
+
