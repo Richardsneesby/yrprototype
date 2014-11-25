@@ -53,11 +53,13 @@
 					}
 				}
 				
-				var ContainerWidth = 320;
+				var ContainerWidth = 340; // Changing this value resets the rest..
 				var Columns = 4;
 				var ColumnWidth = 80;
 				var HourlyIntervals = 6;
 				var HourWidth = 13;
+				
+				var kyz = "";
 				
 				function calculateWidths(data){
 					kyz = Object.keys(data);
@@ -69,7 +71,214 @@
 				}
 				
 				function drawCanvasContainers(){
-					//
+					d3.select("#symbolcontainer").style("width", ContainerWidth+"px");
+					d3.selectAll(".temperature").style("width", ColumnWidth+"px");
+					d3.selectAll(".temperature").style("margin-left", -8+"px");
+					var CanvasElem = document.getElementsByClassName("can_column");
+					for(var x=0; x < CanvasElem.length; x++) {
+						CanvasElem[x].width = ColumnWidth;
+						CanvasElem[x].height = 60;
+						if(x > 0){
+							CanvasElem[x].style.marginLeft = "-10px";
+							d3.select(".temperature").style("margin-left", 0+"px");
+						}
+					}
+					initSymbols();
+				}
+				
+				function initSymbols(){
+					for(var i=0; i < kyz.length; i++) {
+						for(var j=0; j < json[kyz[i]].symbols.length; j++) {
+							drawSymbol(i,[json[kyz[i]].symbols[j],json[kyz[i]].density[j],json[kyz[i]].probability[j],json[kyz[i]].rainMin[j],json[kyz[i]].rainMax[j],json[kyz[i]].dewPoint[j]]);
+						}
+					}
+				}
+				
+				var RandYvalues = [0,1,2,3,4,5,6,7,8,9,10];
+				function getRandY(){
+					var item = RandYvalues[Math.floor(Math.random()*RandYvalues.length)];
+					return item;
+				}
+				
+				function drawSymbol(periodId,symbolData){
+					if(periodId == 0){
+						var canColumn = document.getElementById('symbolcontainer').getElementsByTagName('canvas')[0];
+						var context = canColumn.getContext('2d');
+						var cloudImage = new Image();
+						
+						var symbolImage = new Image();
+						symbolImage.onload = function(){
+							context.globalAlpha = 0;
+							context.globalCompositeOperation = "multiply";
+							context.drawImage(this,0,0,80,80,(ColumnWidth/2)-20,10,40,40);
+						}
+						symbolImage.src = "images/sun_full.png";
+						
+						var CW = 40;
+						var CH = 60;
+						var CW2 = CW/2;
+						var CH2 = CH/2;
+						
+						if(symbolData[1] < 100){
+							cloudImage.onload = function(){
+								context.globalAlpha = 0.6;
+								context.globalCompositeOperation = "screen";
+						    	context.drawImage(this,0,getRandY(),CW,CH,0,20,CW2,CH2);
+						    	context.drawImage(this,40,getRandY(),CW,CH,13,20,CW2,CH2);
+						    	context.drawImage(this,0,getRandY(),CW,CH,13,25,CW2,CH2);
+						    	context.drawImage(this,40,getRandY(),CW,CH,0,15,CW2,CH2);
+						    	
+						    	context.globalAlpha = 0.3;
+						    	context.globalCompositeOperation = "screen";
+						    	context.drawImage(this,40,getRandY(),CW,CH,16,20,CW2,CH2);
+						    	context.drawImage(this,80,getRandY(),CW,CH,10,15,CW2,CH2);
+						    	context.drawImage(this,40,getRandY(),CW,CH,13,25,CW2,CH2);
+						    	
+						    	context.globalAlpha = 0.3;
+						    	context.globalCompositeOperation = "multiply";
+						    	context.drawImage(this,40,getRandY(),CW,CH,31,20,CW2,CH2);
+						    	context.drawImage(this,80,getRandY(),CW,CH,22,15,CW2,CH2);
+						    	
+						    	context.globalAlpha = 0.4;
+						    	context.globalCompositeOperation = "multiply";
+						    	context.drawImage(this,0,getRandY(),CW,CH,40,20,CW2,CH2);
+						    	context.drawImage(this,40,getRandY(),CW,CH,40,25,CW2,CH2);
+						    	context.drawImage(this,120,getRandY(),CW,CH,36,15,CW2,CH2);
+						    	context.drawImage(this,80,getRandY(),CW,CH,36,10,CW2,CH2);
+						    	context.drawImage(this,40,getRandY(),CW,CH,52,20,CW2,CH2);
+						    	context.drawImage(this,120,getRandY(),CW,CH,53,25,CW2,CH2);
+						    	context.drawImage(this,80,getRandY(),CW,CH,48,15,CW2,CH2);
+						    	context.drawImage(this,160,getRandY(),CW,CH,52,10,CW2,CH2);
+						    	context.drawImage(this,40,getRandY(),CW,CH,55,20,CW2,CH2);
+						    	
+						    	context.globalAlpha = 0.5;
+						    	context.globalCompositeOperation = "multiply";
+						    	context.drawImage(this,160,getRandY(),CW,CH,65,20,CW2,CH2);
+						    	context.drawImage(this,120,getRandY(),CW,CH,66,25,CW2,CH2);
+						    	context.drawImage(this,80,getRandY(),CW,CH,60,15,CW2,CH2);
+						    	context.drawImage(this,160,getRandY(),CW,CH,65,10,CW2,CH2);
+						    	context.drawImage(this,80,getRandY(),CW,CH,68,20,CW2,CH2);
+						  	}
+						  	cloudImage.src = "images/clouds_sprite.png";
+						}
+					}
+					
+					if(periodId == 1){
+						var canColumn = document.getElementById('symbolcontainer').getElementsByTagName('canvas')[1];
+						var context = canColumn.getContext('2d');
+						var cloudImage = new Image();
+						
+						var symbolImage = new Image();
+						symbolImage.onload = function(){
+							context.globalAlpha = 0.2;
+							context.drawImage(this,0,0,80,80,(ColumnWidth/2)-20,10,40,40);
+						}
+						symbolImage.src = "images/sun_full.png";
+						
+						var CW = 40;
+						var CH = 60;
+						var CW2 = CW/2;
+						var CH2 = CH/2;
+						
+						if(symbolData[1] < 100){
+							cloudImage.onload = function(){
+								context.globalAlpha = 0.5;
+						    	context.globalCompositeOperation = "multiply";
+						    	context.drawImage(this,160,getRandY(),CW,CH,0,15,CW2,CH2);
+						    	context.drawImage(this,120,getRandY(),CW,CH,13,20,CW2,CH2);
+						    	context.drawImage(this,80,getRandY(),CW,CH,0,15,CW2,CH2);
+						    	context.drawImage(this,160,getRandY(),CW,CH,13,25,CW2,CH2);
+						    	context.drawImage(this,80,getRandY(),CW,CH,13,20,CW2,CH2);
+						    	
+						    	context.globalAlpha = 0.4;
+						    	context.globalCompositeOperation = "multiply";
+						    	context.drawImage(this,0,getRandY(),CW,CH,10,20,CW2,CH2);
+						    	context.drawImage(this,40,getRandY(),CW,CH,13,25,CW2,CH2);
+						    	context.drawImage(this,80,getRandY(),CW,CH,17,10,CW2,CH2);
+						    	context.drawImage(this,120,getRandY(),CW,CH,10,20,CW2,CH2);
+						    	context.drawImage(this,80,getRandY(),CW,CH,16,15,CW2,CH2);
+						    	context.drawImage(this,40,getRandY(),CW,CH,14,20,CW2,CH2);
+						    	
+						    	context.globalAlpha = 0.3;
+						    	context.globalCompositeOperation = "multiply";
+						    	context.drawImage(this,40,getRandY(),CW,CH,31,20,CW2,CH2);
+						    	context.drawImage(this,80,getRandY(),CW,CH,22,15,CW2,CH2);
+						    	
+						    	context.globalAlpha = 0.3;
+						    	context.globalCompositeOperation = "screen";
+						    	context.drawImage(this,40,getRandY(),CW,CH,40,20,CW2,CH2);
+						    	context.drawImage(this,80,getRandY(),CW,CH,38,15,CW2,CH2);
+						    	context.drawImage(this,40,getRandY(),CW,CH,42,25,CW2,CH2);
+						    	
+								context.globalAlpha = 0.7;
+								context.globalCompositeOperation = "screen";
+						    	context.drawImage(this,0,getRandY(),CW,CH,54,20,CW2,CH2);
+						    	context.drawImage(this,40,getRandY(),CW,CH,52,20,CW2,CH2);
+						    	context.drawImage(this,0,getRandY(),CW,CH,48,15,CW2,CH2);
+						    	
+						  	}
+						  	cloudImage.src = "images/clouds_sprite.png";
+						}
+					}
+					
+					if(periodId == 2){
+						var canColumn = document.getElementById('symbolcontainer').getElementsByTagName('canvas')[2];
+						var context = canColumn.getContext('2d');
+						var cloudImage = new Image();
+						
+						var symbolImage = new Image();
+						symbolImage.onload = function(){
+							context.globalAlpha = 0.4;
+							context.drawImage(this,0,0,80,80,(ColumnWidth/2)-20,10,40,40);
+						}
+						symbolImage.src = "images/sun_full.png";
+						
+						var CW = 40;
+						var CH = 60;
+						var CW2 = CW/2;
+						var CH2 = CH/2;
+						
+						if(symbolData[1] < 100){
+							cloudImage.onload = function(){
+								context.globalAlpha = 0.8;
+								context.globalCompositeOperation = "screen";
+						    	context.drawImage(this,0,getRandY(),CW,CH,0,20,CW2,CH2);
+						    	context.drawImage(this,40,getRandY(),CW,CH,13,20,CW2,CH2);
+						    	
+						    	context.globalAlpha = 1;
+								context.globalCompositeOperation = "screen";
+						    	context.drawImage(this,40,getRandY(),CW,CH,39,20,CW2,CH2);
+						    	
+						  	}
+						  	cloudImage.src = "images/clouds_sprite.png";
+						}
+					}
+					
+					if(periodId == 3){
+						var canColumn = document.getElementById('symbolcontainer').getElementsByTagName('canvas')[3];
+						var context = canColumn.getContext('2d');
+						var cloudImage = new Image();
+						
+						var symbolImage = new Image();
+						symbolImage.onload = function(){
+							context.globalAlpha = 0.6;
+							context.drawImage(this,0,0,80,80,(ColumnWidth/2)-20,10,40,40);
+						}
+						symbolImage.src = "images/sun_full.png";
+						
+						var CW = 40;
+						var CH = 60;
+						var CW2 = CW/2;
+						var CH2 = CH/2;
+						
+						if(symbolData[1] < 100){
+							cloudImage.onload = function(){
+						    	
+						  	}
+						  	cloudImage.src = "images/clouds_sprite.png";
+						}
+					}
+
 				}
 				
 				calculateWidths(json);
@@ -82,11 +291,20 @@
 </head>
 <body>
 	
-	<div class="container">
-		<canvas class="can_column"></canvas>
-		<canvas class="can_column"></canvas>
-		<canvas class="can_column"></canvas>
-		<canvas class="can_column"></canvas>
+	<div class="pageContainer" style="width:320px;">
+		<div class="temperaturecontainer">
+			<div class="temperature bluetext">-1<span class="smalldegree">°</span></div>
+			<div class="temperature">1<span class="smalldegree">°</span></div>
+			<div class="temperature">3<span class="smalldegree">°</span></div>
+			<div class="temperature">5<span class="smalldegree">°</span></div>
+		</div>
+		<br>
+		<div id="symbolcontainer">
+			<canvas width="80" height="60" class="can_column"></canvas>
+			<canvas width="80" height="60" class="can_column"></canvas>
+			<canvas width="80" height="60" class="can_column"></canvas>
+			<canvas width="80" height="60" class="can_column"></canvas>
+		</div>
 	</div>
 	
 </body>
