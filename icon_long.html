@@ -127,7 +127,7 @@
 						d3.select("#weather-table-container").style("display", "block");
 						d3.transition()
 						.duration(200)
-						.tween("scroll", scrollTween(100));
+						.tween("scroll", scrollTween(85));
 						Longterm = true;
 					} else {
 						d3.select("#table-swap-container").style("display", "block");
@@ -149,7 +149,7 @@
 	</script>
 	
 </head>
-<body>
+<body style="background-color: #E6E6E6;">
 	
 <svg display="none" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 <defs>
@@ -191,14 +191,14 @@
 	
 	
 	<div id="container">
-		<header id="header" class="clearfix">
-        	<a id="logo_yr-container" href="natural.html">
+		<!--<header id="header" class="clearfix">
+        	<a id="logo_yr-container" href="icon.html">
 	        	<svg class="icon icon-logo_yr"><use xlink:href="#icon-logo_yr"></use></svg>
 	        </a>
 	        <a id="ico_cog-container" href="#">
 	        	<svg class="icon icon-ico_cog"><use xlink:href="#icon-ico_cog"></use></svg>
 	        </a>
-    	</header>
+    	</header>-->
     	
     	<div id="page-content">
 	    	<div class="search-grey-bg clearfix">
@@ -217,25 +217,25 @@
 					<a id="geoCancel" href="#">Cancel</a>
 				</div>
 				<div id="overlay-geoResults" class="concept-holder" style="display: none;">
-					<img src="images/overlay_georesults_NEW.png"/>
+					<img src="images/V2_overlay_georesults_NEW.png"/>
 				</div>
 			</div>
 			
 	    	<div id="concept-prognosis" class="concept-holder">
-		    	<img id="page-concept-view" src="images/place_title.png"/>
+		    	<img id="page-concept-view" src="images/V3_place_title.png"/>
 		    	<div id="table-swap-container">
-			    	<img id="page-concept-view" src="images/short_alert_1_NEW.png"/>
+			    	<img id="page-concept-view" src="images/V4_short_alert_1.png"/>
 			    </div>
 			    <div id="weather-table-container">
 					<div id="weather-long-title" class="weather-table-title">
-						<img width="310" id="weather-long-title" src="images/longterm_title.png"/>
+						<img width="310" id="weather-long-title" src="images/V3_longterm_title.png"/>
 					</div>
 					<div class="weather-table">
-						<img height="350" width="780" id="weatherlong-view" src="images/longterm1.png"/>
+						<img height="350" width="780" id="weatherlong-view" src="images/V2_longterm1.png"/>
 					</div>
 				</div>
-		    	<img id="page-concept-view" src="images/short_alert_2_NEW.png"/>
-		    	<img id="page-concept-view" src="images/short_alerts_NEW.png"/>
+		    	<img id="page-concept-view" src="images/V4_short_alert_2.png"/>
+		    	<img id="page-concept-view" src="images/V4_short_alerts.png"/>
 			</div>
 			
     	</div>

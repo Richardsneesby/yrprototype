@@ -22,6 +22,8 @@
 		(function (){
 			window.addEventListener('load', function () {
 				
+				var searching = "false";
+				
 				var searchClicked = function () {
 					d3.select("#freetextSearchInput")
 					.transition()
@@ -34,6 +36,7 @@
 					d3.select(".icon-geo_loader").style("display", "none");
 					d3.select("#concept-prognosis").style("opacity", 0);
 					d3.select("#overlay-geoResults").style("opacity", 0);
+					searching = "true";
 				}
 				var searchBlur = function () {
 					d3.select("#freetextSearchInput")
@@ -42,13 +45,17 @@
 					.style("width", "268px");
 					d3.transition()
 					.duration(200)
-					.tween("scroll", scrollTween(0));
+					.tween("scroll", scrollTween(0))
+					.each("end", setSearchingToFalse);
 					d3.select(".icon-ico_geonav").style("display", "block");
 					d3.select(".icon-geo_loader").style("display", "none");
 					d3.select("#concept-prognosis").style("opacity", 100);
 					d3.select("#concept-prognosis").style("display", "block");
 					d3.select("#overlay-geoResults").style("display", "none");
 					d3.select("#overlay-geoResults").style("opacity", 100);
+				}
+				function setSearchingToFalse(){
+					searching = "false";
 				}
 				function scrollTween(offset) {
 					return function() {
@@ -102,22 +109,31 @@
 				geoCancel.addEventListener("click", geoSearchFunc, false);
 				
 				var rootPath = "images/";
-				var pageArr = ["con_shortterm5.png","con_shortterm4.png"];
+				var pageArr = ["frontpage.png"];
 				var pageIndex = 0;
 				
 				var swapPage = function() {
-					d3.select("#page-concept-view")
-					.style("opacity", "0")
-					.attr("src", rootPath+pageArr[pageIndex])
-					.transition()
-					.duration(200)
-					.style("opacity", "1");
-					pageIndex = pageIndex+1;
-					if(pageIndex >= pageArr.length){ pageIndex = 0; }
+					if(searching == false){
+						d3.select("#page-concept-view")
+						.style("opacity", "0")
+						.attr("src", rootPath+pageArr[pageIndex])
+						.transition()
+						.duration(200)
+						.style("opacity", "1");
+						pageIndex = pageIndex+1;
+						if(pageIndex >= pageArr.length){ pageIndex = 0; }
+					}
 				}
 				
-				//var conceptPrognosis = document.getElementById("concept-prognosis");
+				var getNewURL = function(){
+					if(searching == "false"){
+						window.location.href = "icon_long.html";
+					}
+				}
+				
+				var conceptPrognosis = document.getElementById("concept-prognosis");
 				//conceptPrognosis.addEventListener("click", swapPage, false);
+				conceptPrognosis.addEventListener("click", getNewURL, false);
 				
 				// Toggle from short to long term
 				var Longterm = false;
@@ -135,12 +151,13 @@
 						Longterm = false;
 					}
 				}
-				
+				/*
 				var tableSwapContainer = document.getElementById("table-swap-container");
 				var weatherTableContainer = document.getElementById("weather-table-container");
 				var weatherTitle = document.getElementById("weather-long-title");
 				tableSwapContainer.addEventListener("click", toggleView, false);
 				weatherTitle.addEventListener("click", toggleView, false);
+				*/
 				
 				
 			});
@@ -149,7 +166,7 @@
 	</script>
 	
 </head>
-<body>
+<body style="background-color: #E6E6E6;">
 	
 <svg display="none" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 <defs>
@@ -191,14 +208,14 @@
 	
 	
 	<div id="container">
-		<header id="header" class="clearfix">
-        	<a id="logo_yr-container" href="icon.html">
+		<!--<header id="header" class="clearfix">
+        	<a id="logo_yr-container" href="index.html">
 	        	<svg class="icon icon-logo_yr"><use xlink:href="#icon-logo_yr"></use></svg>
 	        </a>
 	        <a id="ico_cog-container" href="#">
 	        	<svg class="icon icon-ico_cog"><use xlink:href="#icon-ico_cog"></use></svg>
 	        </a>
-    	</header>
+    	</header>-->
     	
     	<div id="page-content">
 	    	<div class="search-grey-bg clearfix">
@@ -217,25 +234,12 @@
 					<a id="geoCancel" href="#">Cancel</a>
 				</div>
 				<div id="overlay-geoResults" class="concept-holder" style="display: none;">
-					<img src="images/V2_overlay_georesults.png"/>
+					<img src="images/overlay_georesults_frontpage.png"/>
 				</div>
 			</div>
 			
 	    	<div id="concept-prognosis" class="concept-holder">
-		    	<img id="page-concept-view" src="images/place_title.png"/>
-		    	<div id="table-swap-container">
-			    	<img id="page-concept-view" src="images/V2_short_alert_1.png"/>
-			    </div>
-			    <div id="weather-table-container">
-					<div id="weather-long-title" class="weather-table-title">
-						<img width="310" id="weather-long-title" src="images/V2_longterm_title.png"/>
-					</div>
-					<div class="weather-table">
-						<img height="350" width="780" id="weatherlong-view" src="images/V2_longterm1.png"/>
-					</div>
-				</div>
-		    	<img id="page-concept-view" src="images/V2_short_alert_2.png"/>
-		    	<img id="page-concept-view" src="images/V2_short_alerts.png"/>
+		    	<img id="page-concept-view" src="images/frontpage_icon.png"/>
 			</div>
 			
     	</div>
