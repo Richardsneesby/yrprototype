@@ -20,46 +20,54 @@
 			window.addEventListener('load', function () {
 				var json = {
 					"morning":{
-						"symbols":		[0,1,0,0,0,1],
-						"density":		[10,15,25,40,35,30],
-						"probability":	[0,10,0,0,10,20],
+						"symbols":		[0,0,0,0,0,1],
+						"density":		[0,0,10,15,20,25],
+						"probability":	[0,0,0,0,0,0],
 						"rainMin":		[0,0,0,0,0,0],
-						"rainMax":		[0,0.2,0,0,0,0.3],
-						"dewPoint":		[0,0.2,0,0,0,0.1]
+						"rainMax":		[0,0,0,0,0,0],
+						"dewPoint":		[0,0.1,0,0,0.1,0.1]
 					},
 					"afternoon":{
-						"symbols":		[0,1,0,0,0,1],
-						"density":		[10,15,25,40,35,30],
-						"probability":	[0,10,0,0,10,20],
+						"symbols":		[1,1,1,1,1,1],
+						"density":		[25,25,20,20,25,30],
+						"probability":	[0,0,0,0,0,0],
 						"rainMin":		[0,0,0,0,0,0],
-						"rainMax":		[0,0.2,0,0,0,0.3],
-						"dewPoint":		[0,0.2,0,0,0,0.1]
+						"rainMax":		[0,0,0,0,0,0],
+						"dewPoint":		[0,0,0,0,0,0.1]
 					},
 					"evening":{
-						"symbols":		[0,1,0,0,0,1],
-						"density":		[10,15,25,40,35,30],
-						"probability":	[0,10,0,0,10,20],
+						"symbols":		[2,2,1,1,2,2],
+						"density":		[40,40,35,35,40,45],
+						"probability":	[0,0,0,0,0,0],
 						"rainMin":		[0,0,0,0,0,0],
-						"rainMax":		[0,0.2,0,0,0,0.3],
-						"dewPoint":		[0,0.2,0,0,0,0.1]
+						"rainMax":		[0,0,0,0,0,0],
+						"dewPoint":		[0,0.1,0,0,0,0]
 					},
 					"night":{
-						"symbols":		[0,1,0,0,0,1],
-						"density":		[10,15,25,40,35,30],
-						"probability":	[0,10,0,0,10,20],
-						"rainMin":		[0,0,0,0,0,0],
-						"rainMax":		[0,0.2,0,0,0,0.3],
-						"dewPoint":		[0,0.2,0,0,0,0.1]
+						"symbols":		[2,3,4,5,5,5],
+						"density":		[50,60,70,80,85,90],
+						"probability":	[10,10,20,40,60,70],
+						"rainMin":		[0,0,0,0.1,0.3,1],
+						"rainMax":		[0,0,0,2,2.5,3.6],
+						"dewPoint":		[0,0.2,0.2,0.3,0.4,0.5]
 					}
 				}
 				
-				var ContainerWidth = 340; // Changing this value resets the rest..
+				var ContainerWidth = 320; // Changing this value resets the rest..
 				var Columns = 4;
 				var ColumnWidth = 80;
 				var HourlyIntervals = 6;
 				var HourWidth = 13;
 				
 				var kyz = "";
+				var cloudImage = new Image();
+				var canvasObjects = new Array();
+				var contextObjects = new Array();
+				
+				var CW = 40;
+				var CH = 60;
+				var CW2 = CW/2;
+				var CH2 = CH/2;
 				
 				function calculateWidths(data){
 					kyz = Object.keys(data);
@@ -67,11 +75,18 @@
 					ColumnWidth = Math.floor(ContainerWidth/Columns);
 					HourlyIntervals = data[kyz[0]].symbols.length;
 					HourWidth = Math.floor(ColumnWidth/HourlyIntervals);
+					
+					CW = HourWidth*3;
+					CH = 60;
+					CW2 = CW/2;
+					CH2 = CH/2;
+				
 					drawCanvasContainers();
 				}
 				
 				function drawCanvasContainers(){
 					d3.select("#symbolcontainer").style("width", ContainerWidth+"px");
+					d3.select(".pageContainer").style("width", ContainerWidth+"px");
 					d3.selectAll(".temperature").style("width", ColumnWidth+"px");
 					d3.selectAll(".temperature").style("margin-left", -8+"px");
 					var CanvasElem = document.getElementsByClassName("can_column");
@@ -83,204 +98,152 @@
 							d3.select(".temperature").style("margin-left", 0+"px");
 						}
 					}
-					initSymbols();
+					loadCanvasResources();
+				}
+				
+				function loadCanvasResources(){
+					cloudImage.onload = function(){
+						initSymbols();
+					}
+					cloudImage.src = "images/clouds_sprite.png";
 				}
 				
 				function initSymbols(){
 					for(var i=0; i < kyz.length; i++) {
+						var thisCanvas = document.getElementById('symbolcontainer').getElementsByTagName('canvas')[i];
+						var thisContext = thisCanvas.getContext('2d');
+						thisContext.clearRect ( 0 , 0 , thisCanvas.width, thisCanvas.height );
+						canvasObjects.push(thisCanvas);
+						contextObjects.push(thisContext);
+						
+						drawSymbol(i);
+					}
+				}
+				
+				function initClouds(){
+					for(var i=0; i < kyz.length; i++) {
+						var xInc = 0;
 						for(var j=0; j < json[kyz[i]].symbols.length; j++) {
-							drawSymbol(i,[json[kyz[i]].symbols[j],json[kyz[i]].density[j],json[kyz[i]].probability[j],json[kyz[i]].rainMin[j],json[kyz[i]].rainMax[j],json[kyz[i]].dewPoint[j]]);
+							drawCloud(i,j,xInc);
+							xInc = xInc+HourWidth;
 						}
 					}
 				}
 				
-				var RandYvalues = [0,1,2,3,4,5,6,7,8,9,10];
+				// Randomizers..
+				var RandYvalues = [0,1,2,3,4,5]; // [0,1,2,3,4,5,61,62,63,64,65];
 				function getRandY(){
 					var item = RandYvalues[Math.floor(Math.random()*RandYvalues.length)];
 					return item;
 				}
-				
-				function drawSymbol(periodId,symbolData){
-					if(periodId == 0){
-						var canColumn = document.getElementById('symbolcontainer').getElementsByTagName('canvas')[0];
-						var context = canColumn.getContext('2d');
-						var cloudImage = new Image();
-						
-						var symbolImage = new Image();
-						symbolImage.onload = function(){
-							context.globalAlpha = 0;
-							context.globalCompositeOperation = "multiply";
-							context.drawImage(this,0,0,80,80,(ColumnWidth/2)-20,10,40,40);
-						}
-						symbolImage.src = "images/sun_full.png";
-						
-						var CW = 40;
-						var CH = 60;
-						var CW2 = CW/2;
-						var CH2 = CH/2;
-						
-						if(symbolData[1] < 100){
-							cloudImage.onload = function(){
-								context.globalAlpha = 0.6;
-								context.globalCompositeOperation = "screen";
-						    	context.drawImage(this,0,getRandY(),CW,CH,0,20,CW2,CH2);
-						    	context.drawImage(this,40,getRandY(),CW,CH,13,20,CW2,CH2);
-						    	context.drawImage(this,0,getRandY(),CW,CH,13,25,CW2,CH2);
-						    	context.drawImage(this,40,getRandY(),CW,CH,0,15,CW2,CH2);
-						    	
-						    	context.globalAlpha = 0.3;
-						    	context.globalCompositeOperation = "screen";
-						    	context.drawImage(this,40,getRandY(),CW,CH,16,20,CW2,CH2);
-						    	context.drawImage(this,80,getRandY(),CW,CH,10,15,CW2,CH2);
-						    	context.drawImage(this,40,getRandY(),CW,CH,13,25,CW2,CH2);
-						    	
-						    	context.globalAlpha = 0.3;
-						    	context.globalCompositeOperation = "multiply";
-						    	context.drawImage(this,40,getRandY(),CW,CH,31,20,CW2,CH2);
-						    	context.drawImage(this,80,getRandY(),CW,CH,22,15,CW2,CH2);
-						    	
-						    	context.globalAlpha = 0.4;
-						    	context.globalCompositeOperation = "multiply";
-						    	context.drawImage(this,0,getRandY(),CW,CH,40,20,CW2,CH2);
-						    	context.drawImage(this,40,getRandY(),CW,CH,40,25,CW2,CH2);
-						    	context.drawImage(this,120,getRandY(),CW,CH,36,15,CW2,CH2);
-						    	context.drawImage(this,80,getRandY(),CW,CH,36,10,CW2,CH2);
-						    	context.drawImage(this,40,getRandY(),CW,CH,52,20,CW2,CH2);
-						    	context.drawImage(this,120,getRandY(),CW,CH,53,25,CW2,CH2);
-						    	context.drawImage(this,80,getRandY(),CW,CH,48,15,CW2,CH2);
-						    	context.drawImage(this,160,getRandY(),CW,CH,52,10,CW2,CH2);
-						    	context.drawImage(this,40,getRandY(),CW,CH,55,20,CW2,CH2);
-						    	
-						    	context.globalAlpha = 0.5;
-						    	context.globalCompositeOperation = "multiply";
-						    	context.drawImage(this,160,getRandY(),CW,CH,65,20,CW2,CH2);
-						    	context.drawImage(this,120,getRandY(),CW,CH,66,25,CW2,CH2);
-						    	context.drawImage(this,80,getRandY(),CW,CH,60,15,CW2,CH2);
-						    	context.drawImage(this,160,getRandY(),CW,CH,65,10,CW2,CH2);
-						    	context.drawImage(this,80,getRandY(),CW,CH,68,20,CW2,CH2);
-						  	}
-						  	cloudImage.src = "images/clouds_sprite.png";
-						}
+				var RandCloudvalues = [0,40,80,120,160,200,240,280,320,360,400,440,480,520,560,600,640,680,720,760];
+				function getRandCloud(){
+					var item = RandCloudvalues[Math.floor(Math.random()*RandCloudvalues.length)];
+					return item;
+				}
+				var CloudRandYPos = [10,15,20,25,30];
+				function getCloudRandYPos(){
+					var item = CloudRandYPos[Math.floor(Math.random()*CloudRandYPos.length)];
+					return item;
+				}
+				var RandBlendModes = ["xor","darker"];
+				function getRandBlendMode(){
+					var item = RandBlendModes[Math.floor(Math.random()*RandBlendModes.length)];
+					return item;
+				}
+				var RandRotatevalues = [-5,-4,-3,-2,-1,0,1,2,3,4,5];
+				function getRandRotate(){
+					var item = RandRotatevalues[Math.floor(Math.random()*RandRotatevalues.length)];
+					return item;
+				}
+				// Generate cloud sprite position
+				var cloudPositions = [
+					[0,40,80,120,160,200,240,280,320,360],
+					[400,440,480,520,560,600,640,680,720,760]
+				];
+				function getRandCloudPos(arr){
+					var item = arr[Math.floor(Math.random()*arr.length)];
+					return item;
+				}
+				function calcCloudCoords(value){
+					var result = new Array();
+					switch(true){
+						case ((value >= 0) && (value <= 5)):
+							result[0] = 0;
+							result[1] = 0;
+							break;
+						case ((value >= 6) && (value <= 10)):
+							result[0] = 0;
+							result[1] = 3;
+							break;
+						case ((value >= 11) && (value <= 20)):
+							result[0] = 0;
+							result[1] = 4;
+							break;
+						case ((value >= 21) && (value <= 30)):
+							result[0] = 0;
+							result[1] = 4;
+							break;
+						case ((value >= 31) && (value <= 40)):
+							result[0] = 0;
+							result[1] = 5;
+							break;
+						case ((value >= 41) && (value <= 50)):
+							result[0] = 1;
+							result[1] = 5;
+							break;
+						case ((value >= 51) && (value <= 60)):
+							result[0] = 1;
+							result[1] = 5;
+							break;
+						case ((value >= 61) && (value <= 70)):
+							result[0] = 1;
+							result[1] = 6;
+							break;
+						case ((value >= 71) && (value <= 80)):
+							result[0] = 1;
+							result[1] = 6;
+							break;
+						case ((value >= 81) && (value <= 90)):
+							result[0] = 1;
+							result[1] = 6;
+							break;
+						case ((value >= 91) && (value <= 100)):
+							result[0] = 1;
+							result[1] = 7;
+							break;
+						default:
+							result[0] = 0;
+							result[1] = 0;
+							break;
 					}
-					
-					if(periodId == 1){
-						var canColumn = document.getElementById('symbolcontainer').getElementsByTagName('canvas')[1];
-						var context = canColumn.getContext('2d');
-						var cloudImage = new Image();
-						
-						var symbolImage = new Image();
-						symbolImage.onload = function(){
-							context.globalAlpha = 0.2;
-							context.drawImage(this,0,0,80,80,(ColumnWidth/2)-20,10,40,40);
-						}
-						symbolImage.src = "images/sun_full.png";
-						
-						var CW = 40;
-						var CH = 60;
-						var CW2 = CW/2;
-						var CH2 = CH/2;
-						
-						if(symbolData[1] < 100){
-							cloudImage.onload = function(){
-								context.globalAlpha = 0.5;
-						    	context.globalCompositeOperation = "multiply";
-						    	context.drawImage(this,160,getRandY(),CW,CH,0,15,CW2,CH2);
-						    	context.drawImage(this,120,getRandY(),CW,CH,13,20,CW2,CH2);
-						    	context.drawImage(this,80,getRandY(),CW,CH,0,15,CW2,CH2);
-						    	context.drawImage(this,160,getRandY(),CW,CH,13,25,CW2,CH2);
-						    	context.drawImage(this,80,getRandY(),CW,CH,13,20,CW2,CH2);
-						    	
-						    	context.globalAlpha = 0.4;
-						    	context.globalCompositeOperation = "multiply";
-						    	context.drawImage(this,0,getRandY(),CW,CH,10,20,CW2,CH2);
-						    	context.drawImage(this,40,getRandY(),CW,CH,13,25,CW2,CH2);
-						    	context.drawImage(this,80,getRandY(),CW,CH,17,10,CW2,CH2);
-						    	context.drawImage(this,120,getRandY(),CW,CH,10,20,CW2,CH2);
-						    	context.drawImage(this,80,getRandY(),CW,CH,16,15,CW2,CH2);
-						    	context.drawImage(this,40,getRandY(),CW,CH,14,20,CW2,CH2);
-						    	
-						    	context.globalAlpha = 0.3;
-						    	context.globalCompositeOperation = "multiply";
-						    	context.drawImage(this,40,getRandY(),CW,CH,31,20,CW2,CH2);
-						    	context.drawImage(this,80,getRandY(),CW,CH,22,15,CW2,CH2);
-						    	
-						    	context.globalAlpha = 0.3;
-						    	context.globalCompositeOperation = "screen";
-						    	context.drawImage(this,40,getRandY(),CW,CH,40,20,CW2,CH2);
-						    	context.drawImage(this,80,getRandY(),CW,CH,38,15,CW2,CH2);
-						    	context.drawImage(this,40,getRandY(),CW,CH,42,25,CW2,CH2);
-						    	
-								context.globalAlpha = 0.7;
-								context.globalCompositeOperation = "screen";
-						    	context.drawImage(this,0,getRandY(),CW,CH,54,20,CW2,CH2);
-						    	context.drawImage(this,40,getRandY(),CW,CH,52,20,CW2,CH2);
-						    	context.drawImage(this,0,getRandY(),CW,CH,48,15,CW2,CH2);
-						    	
-						  	}
-						  	cloudImage.src = "images/clouds_sprite.png";
-						}
-					}
-					
-					if(periodId == 2){
-						var canColumn = document.getElementById('symbolcontainer').getElementsByTagName('canvas')[2];
-						var context = canColumn.getContext('2d');
-						var cloudImage = new Image();
-						
-						var symbolImage = new Image();
-						symbolImage.onload = function(){
-							context.globalAlpha = 0.4;
-							context.drawImage(this,0,0,80,80,(ColumnWidth/2)-20,10,40,40);
-						}
-						symbolImage.src = "images/sun_full.png";
-						
-						var CW = 40;
-						var CH = 60;
-						var CW2 = CW/2;
-						var CH2 = CH/2;
-						
-						if(symbolData[1] < 100){
-							cloudImage.onload = function(){
-								context.globalAlpha = 0.8;
-								context.globalCompositeOperation = "screen";
-						    	context.drawImage(this,0,getRandY(),CW,CH,0,20,CW2,CH2);
-						    	context.drawImage(this,40,getRandY(),CW,CH,13,20,CW2,CH2);
-						    	
-						    	context.globalAlpha = 1;
-								context.globalCompositeOperation = "screen";
-						    	context.drawImage(this,40,getRandY(),CW,CH,39,20,CW2,CH2);
-						    	
-						  	}
-						  	cloudImage.src = "images/clouds_sprite.png";
-						}
-					}
-					
-					if(periodId == 3){
-						var canColumn = document.getElementById('symbolcontainer').getElementsByTagName('canvas')[3];
-						var context = canColumn.getContext('2d');
-						var cloudImage = new Image();
-						
-						var symbolImage = new Image();
-						symbolImage.onload = function(){
-							context.globalAlpha = 0.6;
-							context.drawImage(this,0,0,80,80,(ColumnWidth/2)-20,10,40,40);
-						}
-						symbolImage.src = "images/sun_full.png";
-						
-						var CW = 40;
-						var CH = 60;
-						var CW2 = CW/2;
-						var CH2 = CH/2;
-						
-						if(symbolData[1] < 100){
-							cloudImage.onload = function(){
-						    	
-						  	}
-						  	cloudImage.src = "images/clouds_sprite.png";
-						}
-					}
-
+					return result;
 				}
 				
+				function drawSymbol(i){
+					var symbolImage = new Image();
+					symbolImage.onload = function(){
+						contextObjects[i].drawImage(symbolImage,0,0,80,80,(ColumnWidth/2)-20,10,40,40);
+						if(i >= kyz.length-1){ initClouds(); }
+					}
+					symbolImage.src = "images/sun_full.png";
+				}
+				
+				function drawCloud(i,j,xInc){
+					var cloudArrInd = calcCloudCoords(json[kyz[i]].density[j])[0];
+					var cloudPosValue = getRandCloudPos(cloudPositions[cloudArrInd]);
+					contextObjects[i].save();
+					//contextObjects[i].globalCompositeOperation = getRandBlendMode(); // doesn't work multiple times?
+					contextObjects[i].globalAlpha = 0.8;
+					contextObjects[i].rotate(getRandRotate()*Math.PI/180);
+					
+					for(var z=0; z < calcCloudCoords(json[kyz[i]].density[j])[1]; z++) {
+						contextObjects[i].drawImage(cloudImage,cloudPosValue,getRandY(),CW,CH,xInc+getRandRotate(),getCloudRandYPos(),CW2,CH2);
+						//contextObjects[i].drawImage(cloudImage,getRandCloud(),getRandY(),CW,CH,xInc,getCloudRandYPos(),CW2,CH2);
+					}
+					contextObjects[i].restore();
+				}
+								
 				calculateWidths(json);
 				
 			});
@@ -298,7 +261,6 @@
 			<div class="temperature">3<span class="smalldegree">°</span></div>
 			<div class="temperature">5<span class="smalldegree">°</span></div>
 		</div>
-		<br>
 		<div id="symbolcontainer">
 			<canvas width="80" height="60" class="can_column"></canvas>
 			<canvas width="80" height="60" class="can_column"></canvas>
