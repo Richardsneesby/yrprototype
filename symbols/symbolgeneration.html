@@ -96,8 +96,8 @@
 				var HourWidth = 13;
 				
 				var kyz = "";
-				var cloudImage = new Image();
-				var rainImage = new Image();
+				var cloudImage;
+				var rainImage;
 				var canvasObjects = new Array();
 				var contextObjects = new Array();
 				
@@ -107,6 +107,12 @@
 				var CH2 = CH/2;
 				
 				function calculateWidths(data){
+					cloudImage = null;
+					rainImage = null;
+					cloudImage = new Image();
+					rainImage = new Image();
+					canvasObjects = [];
+					contextObjects = [];
 					kyz = Object.keys(data);
 					Columns = kyz.length;
 					ColumnWidth = Math.floor(ContainerWidth/Columns);
@@ -335,6 +341,26 @@
 								
 				calculateWidths(json);
 				
+				/* DEMO STUFF */
+				document.getElementById("widthup").onclick=function(){
+					ContainerWidth = ContainerWidth+80;
+					if(ContainerWidth >= 768){ ContainerWidth = 768; }
+					calculateWidths(json);
+				};
+				document.getElementById("widthdown").onclick=function(){
+					ContainerWidth = ContainerWidth-80;
+					if(ContainerWidth <= 320){ ContainerWidth = 320; }
+					calculateWidths(json);
+				};
+				var dataSources = [jsonData1,jsonData2];
+				var dataSourceInc = 0;
+				document.getElementById("dataswap").onclick=function(){
+					json = dataSources[dataSourceInc];
+					calculateWidths(json);
+					dataSourceInc = dataSourceInc+1;
+					if(dataSourceInc >= dataSources.length){dataSourceInc = 0;}
+				}
+				
 			});
 		})();
 		
@@ -356,6 +382,12 @@
 			<canvas width="80" height="60" class="can_column"></canvas>
 			<canvas width="80" height="60" class="can_column"></canvas>
 		</div>
+	</div>
+	
+	<div id="ui-sizecontainer">
+		<div id="widthdown" class="sizeBtn">-</div>
+		<div id="widthup" class="sizeBtn">+</div>
+		<div id="dataswap" class="textBtn">New data</div>
 	</div>
 	
 </body>

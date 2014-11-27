@@ -41,3 +41,30 @@ body {
 .redtext {
 	color:#DF2918;
 }
+
+/* Demo stuff */
+#ui-sizecontainer {
+	margin-top: 60px;
+	float:left;
+	width:100%;
+}
+.sizeBtn, .textBtn {
+	cursor: pointer;
+	float:left;
+	background-color:#4D4D4D;
+	color:#FFFFFF;
+	font-size: 2.2em;
+	width:60px;
+	height:60px;
+	line-height:60px;
+	text-align: center;
+	margin:1px;
+	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+.textBtn {
+	font-size: 1.2em;
+	padding-left: 20px;
+	padding-right: 20px;
+	width:auto;
+}
+
