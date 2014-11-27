@@ -86,6 +86,74 @@
 						"dewPoint":		[0.4,0.2,0.2,0.3,0.4,0.5]
 					}
 				}
+				var jsonData3 = {
+					"morning":{
+						"symbols":		[5,5,4,4,5,5],
+						"density":		[60,50,30,30,60,70],
+						"probability":	[60,50,20,40,60,70],
+						"rainMin":		[0.9,0,0,0.1,0.3,1],
+						"rainMax":		[2.2,2.3,3,4,5,3.2],
+						"dewPoint":		[0.4,0.2,0.2,0.3,0.4,0.5]
+					},
+					"afternoon":{
+						"symbols":		[5,5,4,4,5,5],
+						"density":		[70,60,40,40,70,80],
+						"probability":	[60,50,20,40,60,70],
+						"rainMin":		[0.9,0,0,0.1,0.3,1],
+						"rainMax":		[1.2,0,0,2,2.5,3.6],
+						"dewPoint":		[0.4,0.2,0.2,0.3,0.4,0.5]
+					},
+					"evening":{
+						"symbols":		[3,3,2,2,2,1],
+						"density":		[50,30,30,80,70,80],
+						"probability":	[10,20,10,0,0,10],
+						"rainMin":		[0,0,0,0,0,0],
+						"rainMax":		[0,0,0,0,0,0],
+						"dewPoint":		[0.4,0.2,0.2,0.3,0.4,0.5]
+					},
+					"night":{
+						"symbols":		[1,1,0,0,0,0],
+						"density":		[10,10,0,0,0,0],
+						"probability":	[0,0,0,0,0,0],
+						"rainMin":		[0,0,0,0,0,0],
+						"rainMax":		[0,0,0,0,0,0],
+						"dewPoint":		[0,0,0,0,0,0]
+					}
+				}
+				var jsonData4 = {
+					"morning":{
+						"symbols":		[0,0,0,0,0,0],
+						"density":		[2,2,2,2,0,0],
+						"probability":	[0,0,0,0,0,0],
+						"rainMin":		[0,0,0,0,0,0],
+						"rainMax":		[0,0,0,0,0,0],
+						"dewPoint":		[0,0,0,0,0,0]
+					},
+					"afternoon":{
+						"symbols":		[0,0,0,0,0,0],
+						"density":		[2,2,2,2,0,0],
+						"probability":	[0,0,0,0,0,0],
+						"rainMin":		[0,0,0,0,0,0],
+						"rainMax":		[0,0,0,0,0,0],
+						"dewPoint":		[0,0,0,0,0,0]
+					},
+					"evening":{
+						"symbols":		[0,0,0,0,0,0],
+						"density":		[2,2,2,2,0,0],
+						"probability":	[0,0,0,0,0,0],
+						"rainMin":		[0,0,0,0,0,0],
+						"rainMax":		[0,0,0,0,0,0],
+						"dewPoint":		[0,0,0,0,0,0]
+					},
+					"night":{
+						"symbols":		[0,0,0,0,0,0],
+						"density":		[2,2,2,2,0,0],
+						"probability":	[0,0,0,0,0,0],
+						"rainMin":		[0,0,0,0,0,0],
+						"rainMax":		[0,0,0,0,0,0],
+						"dewPoint":		[0,0,0,0,0,0]
+					}
+				}
 				
 				var json = jsonData1;
 				
@@ -352,7 +420,7 @@
 					if(ContainerWidth <= 320){ ContainerWidth = 320; }
 					calculateWidths(json);
 				};
-				var dataSources = [jsonData1,jsonData2];
+				var dataSources = [jsonData1,jsonData2,jsonData3,jsonData4];
 				var dataSourceInc = 0;
 				document.getElementById("dataswap").onclick=function(){
 					json = dataSources[dataSourceInc];
