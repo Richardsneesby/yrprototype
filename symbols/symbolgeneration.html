@@ -163,6 +163,10 @@
 				var HourlyIntervals = 6;
 				var HourWidth = 13;
 				
+				var CloudImageFile = "images/clouds_sprite.png";
+				var RainImageFile = "images/raindrop.png";
+				var SunImageFile = "images/sun_full.png";
+				
 				var kyz = "";
 				var cloudImage;
 				var rainImage;
@@ -218,9 +222,9 @@
 						cloudImage.onload = function(){
 							initSymbols();
 						}
-						cloudImage.src = "images/clouds_sprite.png";
+						cloudImage.src = CloudImageFile;
 					}
-					rainImage.src = "images/raindrop.png";
+					rainImage.src = RainImageFile;
 				}
 				
 				function initSymbols(){
@@ -368,7 +372,7 @@
 							contextObjects[i].drawImage(symbolImage,0,0,80,80,(ColumnWidth/2)-20,10,40,40);
 							if(i >= kyz.length-1){ initClouds(); }
 						}
-						symbolImage.src = "images/sun_full.png";
+						symbolImage.src = SunImageFile;
 					} else {
 						if(i >= kyz.length-1){ initClouds(); }
 					}
@@ -428,6 +432,14 @@
 					dataSourceInc = dataSourceInc+1;
 					if(dataSourceInc >= dataSources.length){dataSourceInc = 0;}
 				}
+				var styleSources = ["images/clouds_sprite.png","images/clouds_spriteV2.png"];
+				var styleSourceInc = 0;
+				document.getElementById("styleswap").onclick=function(){
+					CloudImageFile = styleSources[styleSourceInc];
+					calculateWidths(json);
+					styleSourceInc = styleSourceInc+1;
+					if(styleSourceInc >= styleSources.length){styleSourceInc = 0;}
+				}
 				
 			});
 		})();
@@ -456,6 +468,7 @@
 		<div id="widthdown" class="sizeBtn">-</div>
 		<div id="widthup" class="sizeBtn">+</div>
 		<div id="dataswap" class="textBtn">New data</div>
+		<div id="styleswap" class="textBtn">New style</div>
 	</div>
 	
 </body>
