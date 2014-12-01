@@ -7,7 +7,8 @@
 
 	<link rel="stylesheet" href="css/main.css">
 	
-	<script src="js/d3.min.js"></script>
+	<script src="js/d3.min.js"></script><!-- Currently don't really use this -->
+	<script src="js/StackBlur.min.js"></script>
   	
 	<title>symbol generation</title>
 	<meta name="description" content="yr prototype">
@@ -164,7 +165,7 @@
 				var HourWidth = 13;
 				
 				var CloudImageFile = "images/clouds_sprite.png";
-				var RainImageFile = "images/raindrop.png";
+				var RainImageFile = "images/raindropV3.png";
 				var SunImageFile = "images/sun_full.png";
 				
 				var kyz = "";
@@ -389,20 +390,22 @@
 						contextObjects[i].globalAlpha = 0.8;
 						contextObjects[i].rotate(getRandRotate()*Math.PI/180);
 						contextObjects[i].drawImage(cloudImage,cloudPosValue,getRandY(),CW,CH,10+(xInc+getCloudRandXPos()),getCloudRandYPos(),CW2,CH2);
+						
 						//contextObjects[i].drawImage(cloudImage,getRandCloud(),getRandY(),CW,CH,xInc,getCloudRandYPos(),CW2,CH2);
 						if(json[kyz[i]].probability[j] > 0 && json[kyz[i]].rainMax[j] > 0){
 							contextObjects[i].globalAlpha = getRainCloudAlpha(json[kyz[i]].probability[j],json[kyz[i]].rainMin[j],json[kyz[i]].rainMax[j]);
-							contextObjects[i].drawImage(cloudImage,cloudPosValue,getRandY()+CH,CW,CH,10+(xInc+getCloudRandXPos()),getCloudRandYPos(),CW2,CH2);
+							contextObjects[i].drawImage(cloudImage,cloudPosValue,getRandY()+CH,CW,CH,10+(xInc+getCloudRandXPos()),30,CW2,CH2);
 						}
+						// stackBlurCanvasRGB(canvasObjects[i], 0, 0, 500, 500, 0.8 ); trying to get closer to blur SVG @marioklingermann
 						contextObjects[i].restore();
 						
 						if(json[kyz[i]].probability[j] > 0 && json[kyz[i]].rainMax[j] > 0){
 							if(rainDropDrawn == false){
 								if(json[kyz[i]].rainMax[j] > 2){
-									contextObjects[i].drawImage(rainImage,0,0,10,19,xInc+8,60,3,6);
-									contextObjects[i].drawImage(rainImage,0,0,10,19,xInc+12,65,3,6);
+									contextObjects[i].drawImage(rainImage,0,0,8,12,xInc+8,60,4,6);
+									contextObjects[i].drawImage(rainImage,0,0,8,12,xInc+14,65,4,6);
 								} else {
-									contextObjects[i].drawImage(rainImage,0,0,10,19,xInc+10,60,3,6);
+									contextObjects[i].drawImage(rainImage,0,0,8,12,xInc+8,60,4,6);
 								}
 								rainDropDrawn = true;
 							}
@@ -432,8 +435,8 @@
 					dataSourceInc = dataSourceInc+1;
 					if(dataSourceInc >= dataSources.length){dataSourceInc = 0;}
 				}
-				var styleSources = ["images/clouds_sprite.png","images/clouds_spriteV2.png","images/clouds_spriteV3.png","images/clouds_spriteV4.png","images/clouds_spriteV5.png","images/clouds_spriteV6.png","images/clouds_spriteV7.png","images/clouds_spriteV8.png","images/clouds_spriteV9.png"];
-				var styleSourceInc = 0;
+				var styleSources = ["images/clouds_sprite.png","images/clouds_spriteV2.png","images/clouds_spriteV3.png","images/clouds_spriteV11.png","images/clouds_spriteV12.png"];
+				var styleSourceInc = 1;
 				document.getElementById("styleswap").onclick=function(){
 					CloudImageFile = styleSources[styleSourceInc];
 					calculateWidths(json);
