@@ -8,7 +8,6 @@
 	<link rel="stylesheet" href="css/main.css">
 	
 	<script src="js/d3.min.js"></script><!-- Currently don't really use this -->
-	<script src="js/StackBlur.min.js"></script>
   	
 	<title>symbol generation</title>
 	<meta name="description" content="yr prototype">
@@ -396,7 +395,6 @@
 							contextObjects[i].globalAlpha = getRainCloudAlpha(json[kyz[i]].probability[j],json[kyz[i]].rainMin[j],json[kyz[i]].rainMax[j]);
 							contextObjects[i].drawImage(cloudImage,cloudPosValue,getRandY()+CH,CW,CH,10+(xInc+getCloudRandXPos()),30,CW2,CH2);
 						}
-						// stackBlurCanvasRGB(canvasObjects[i], 0, 0, 500, 500, 0.8 ); trying to get closer to blur SVG @marioklingermann
 						contextObjects[i].restore();
 						
 						if(json[kyz[i]].probability[j] > 0 && json[kyz[i]].rainMax[j] > 0){
@@ -435,10 +433,12 @@
 					dataSourceInc = dataSourceInc+1;
 					if(dataSourceInc >= dataSources.length){dataSourceInc = 0;}
 				}
-				var styleSources = ["images/clouds_sprite.png","images/clouds_spriteV2.png","images/clouds_spriteV3.png","images/clouds_spriteV11.png","images/clouds_spriteV12.png"];
+				var styleSources = ["images/clouds_sprite.png","images/clouds_spriteV2.png","images/clouds_spriteV11.png","images/clouds_spriteV12.png","images/clouds_spriteV13.png"];
+				var styleNames = ["Png sprite - not blurred","Png sprite - blurred","SVG","SVG with texture","SVG with texture and blurred"];
 				var styleSourceInc = 1;
 				document.getElementById("styleswap").onclick=function(){
 					CloudImageFile = styleSources[styleSourceInc];
+					document.getElementById('debugtext').innerHTML = 'Mockup: '+styleNames[styleSourceInc];
 					calculateWidths(json);
 					styleSourceInc = styleSourceInc+1;
 					if(styleSourceInc >= styleSources.length){styleSourceInc = 0;}
@@ -468,6 +468,7 @@
 	</div>
 	
 	<div id="ui-sizecontainer">
+		<div id="debugtext">Mockup: Png sprite - not blurred</div>
 		<div id="widthdown" class="sizeBtn">-</div>
 		<div id="widthup" class="sizeBtn">+</div>
 		<div id="dataswap" class="textBtn">New data</div>

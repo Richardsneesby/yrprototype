@@ -8,7 +8,6 @@
 	<link rel="stylesheet" href="css/main.css">
 	
 	<script src="js/d3.min.js"></script><!-- Currently don't really use this -->
-	<script src="js/StackBlur.min.js"></script>
   	
 	<title>symbol blur</title>
 	<meta name="description" content="yr prototype">
@@ -20,7 +19,7 @@
 		(function (){
 			window.addEventListener('load', function () {
 				
-				alert("HI");
+				//
 				
 			});
 		})();
@@ -31,13 +30,19 @@
 <body>
 	
 	<div id="pageContainer" style="width:320px;">
-		<div id="imageHolder" style="position:absolute;left:20px; top:20px;text-align:center;font-size:10px;">
-			 <img id="srcimg" width="320" src="images/cloudblurtest.png"><br>
-		</div>
-		<div id="canvasHolder" style="position:absolute;left:20px; top:20px;text-align:center;font-size:10px;">
-			 <canvas height="320" width="100" style="width: 320px; height: 100px;" id="canvas">
-		</canvas>
-		</div>
+		<defs>
+			<pattern id="img1" patternUnits="userSpaceOnUse" width="180" height="100">
+			<image xlink:href="images/cloud_text.png" x="0" y="0" width="180" height="100" />
+			</pattern>
+		</defs>
+		<path d="M5,50
+		l0,100 l100,0 l0,-100 l-100,0
+		M215,100
+		a50,50 0 1 1 -100,0 50,50 0 1 1 100,0
+		M265,50
+		l50,100 l-100,0 l50,-100
+		z"
+		fill="url(#img1)" />
 	</div>
 	
 	<div id="ui-sizecontainer">
