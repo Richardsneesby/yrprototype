@@ -127,7 +127,7 @@
 						d3.select("#weather-table-container").style("display", "block");
 						d3.transition()
 						.duration(200)
-						.tween("scroll", scrollTween(85));
+						.tween("scroll", scrollTween(100));
 						Longterm = true;
 					} else {
 						d3.select("#table-swap-container").style("display", "block");
@@ -191,14 +191,14 @@
 	
 	
 	<div id="container">
-		<!--<header id="header" class="clearfix">
+		<header id="header" class="clearfix">
         	<a id="logo_yr-container" href="icon.html">
 	        	<svg class="icon icon-logo_yr"><use xlink:href="#icon-logo_yr"></use></svg>
 	        </a>
 	        <a id="ico_cog-container" href="#">
 	        	<svg class="icon icon-ico_cog"><use xlink:href="#icon-ico_cog"></use></svg>
 	        </a>
-    	</header>-->
+    	</header>
     	
     	<div id="page-content">
 	    	<div class="search-grey-bg clearfix">

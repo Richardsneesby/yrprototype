@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en" class="no-js">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"/>
+	<meta name="apple-mobile-web-app-capable" content="yes">
+
+	<link rel="stylesheet" href="css/main.css">
+	
+	<script src="js/d3.min.js"></script><!-- Currently don't really use this -->
+	<script src="js/StackBlur.min.js"></script>
+  	
+	<title>symbol blur</title>
+	<meta name="description" content="yr prototype">
+	<meta name="author" content="Richard Park Sneesby">
+	<meta name="keywords" content="yr prototype">
+	
+	<script type="text/javascript">
+	
+		(function (){
+			window.addEventListener('load', function () {
+				
+				alert("HI");
+				
+			});
+		})();
+		
+	</script>
+	
+</head>
+<body>
+	
+	<div id="pageContainer" style="width:320px;">
+		<div id="imageHolder" style="position:absolute;left:20px; top:20px;text-align:center;font-size:10px;">
+			 <img id="srcimg" width="320" src="images/cloudblurtest.png"><br>
+		</div>
+		<div id="canvasHolder" style="position:absolute;left:20px; top:20px;text-align:center;font-size:10px;">
+			 <canvas height="320" width="100" style="width: 320px; height: 100px;" id="canvas">
+		</canvas>
+		</div>
+	</div>
+	
+	<div id="ui-sizecontainer">
+		<div id="widthdown" class="sizeBtn">-</div>
+		<div id="widthup" class="sizeBtn">+</div>
+		<!--<div id="dataswap" class="textBtn">New data</div>
+		<div id="styleswap" class="textBtn">New style</div>-->
+	</div>
+	
+</body>
+</html>
+
+
