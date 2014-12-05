@@ -246,7 +246,7 @@
 					}
 				}
 				var jsonData2 = {
-					"int1":{
+					"shortint1":{
 						"mainsymbol":	1,
 						"symbols":		[5,5,4,4,5,5],
 						"density":		[60,50,30,30,60,70],
@@ -255,7 +255,7 @@
 						"rainMax":		[0.2,0,0,1,1.5,2.2],
 						"dewPoint":		[0.4,0.2,0.2,0.3,0.4,0.5]
 					},
-					"int2":{
+					"shortint2":{
 						"mainsymbol":	1,
 						"symbols":		[5,5,4,4,5,5],
 						"density":		[70,60,40,40,70,80],
@@ -264,7 +264,7 @@
 						"rainMax":		[1.2,0,0,2,2.5,3.6],
 						"dewPoint":		[0.4,0.2,0.2,0.3,0.4,0.5]
 					},
-					"int3":{
+					"shortint3":{
 						"mainsymbol":	0,
 						"symbols":		[5,5,4,4,5,5],
 						"density":		[80,70,50,50,80,90],
@@ -273,7 +273,7 @@
 						"rainMax":		[1.2,0,0,2,2.5,3.6],
 						"dewPoint":		[0.4,0.2,0.2,0.3,0.4,0.5]
 					},
-					"int4":{
+					"shortint4":{
 						"mainsymbol":	0,
 						"symbols":		[5,5,4,4,5,5],
 						"density":		[80,70,50,50,80,90],
@@ -284,9 +284,9 @@
 					}
 				}
 				
-				var json = jsonData1;
+				var json = jsonData2;
 				
-				var ContainerWidth = 1440; // Changing this value resets the rest..
+				var ContainerWidth = 320; // 1440 // Changing this value resets the rest..
 				var Columns = 4;
 				var ColumnWidth = 80;
 				var HourlyIntervals = 6;
@@ -335,13 +335,13 @@
 					d3.selectAll(".temperature").style("width", ColumnWidth+8+"px");
 					d3.selectAll(".temperature").style("margin-left", -8+"px");
 					
-					var CanvasElem = document.getElementsByClassName("can_column");
+					var CanvasElem = document.getElementsByClassName("can_column");					
 					for(var x=0; x < CanvasElem.length; x++) {
 						CanvasElem[x].width = ColumnWidth+30;
 						CanvasElem[x].height = 80;
 						if(x > 0){
 							CanvasElem[x].style.marginLeft = "-30px";
-							d3.select(".temperature").style("margin-left", 0+"px");
+							//d3.select(".temperature").style("margin-left", 0+"px");
 						}
 					}
 					loadCanvasResources();
@@ -593,10 +593,11 @@
 					if(ContainerWidth <= 320){ ContainerWidth = 320; }
 					calculateWidths(json);
 				};
-				var dataSources = [jsonData1,jsonData1];
+				var dataSources = [jsonData2,jsonData1];
 				var dataSourceInc = 0;
 				document.getElementById("dataswap").onclick=function(){
 					json = dataSources[dataSourceInc];
+					if(dataSourceInc == 0){ContainerWidth = 320;} else {ContainerWidth = 1440;}
 					calculateWidths(json);
 					dataSourceInc = dataSourceInc+1;
 					if(dataSourceInc >= dataSources.length){dataSourceInc = 0;}
