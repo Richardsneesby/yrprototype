@@ -284,9 +284,9 @@
 					}
 				}
 				
-				var json = jsonData2;
+				var json = jsonData1;
 				
-				var ContainerWidth = 320; // 1440 // Changing this value resets the rest..
+				var ContainerWidth = 1440; // 320 // Changing this value resets the rest..
 				var Columns = 4;
 				var ColumnWidth = 80;
 				var HourlyIntervals = 6;
@@ -593,11 +593,10 @@
 					if(ContainerWidth <= 320){ ContainerWidth = 320; }
 					calculateWidths(json);
 				};
-				var dataSources = [jsonData2,jsonData1];
+				var dataSources = [jsonData1,jsonData1];
 				var dataSourceInc = 0;
 				document.getElementById("dataswap").onclick=function(){
 					json = dataSources[dataSourceInc];
-					if(dataSourceInc == 0){ContainerWidth = 320;} else {ContainerWidth = 1440;}
 					calculateWidths(json);
 					dataSourceInc = dataSourceInc+1;
 					if(dataSourceInc >= dataSources.length){dataSourceInc = 0;}

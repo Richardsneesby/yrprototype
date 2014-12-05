@@ -179,7 +179,7 @@
 				var HourlyIntervals = 6;
 				var HourWidth = 13;
 				
-				var CloudImageFile = "images/clouds_sprite.png";
+				var CloudImageFile = "images/clouds_spriteV13.png";
 				var RainImageFile = "images/raindropV3.png";
 				var SunImageFile = "images/sun_full.png";
 				var MoonImageFile = "images/moon_full.png";
@@ -318,6 +318,9 @@
 					var item = arr[Math.floor(Math.random()*arr.length)];
 					return item;
 				}
+				function getRandomArbitrary(min, max) {
+				  return Math.random() * (max - min) + min;
+				}
 				function calcCloudCoords(value){
 					var result = new Array();
 					switch(true){
@@ -382,6 +385,15 @@
 					return symbolAverage;
 				}
 				
+				function getAverageCloudCover(i){
+					var cloudAverage = 0;
+					for( var d = 0; d < json[kyz[i]].density.length; d++ ){
+						cloudAverage += parseInt( json[kyz[i]].density[d], 10 );
+					}
+					cloudAverage = cloudAverage/json[kyz[i]].density.length;
+					return cloudAverage;
+				}
+				
 				function drawShortTermSymbol(i){
 					var averageSymbolType = Math.round(getAverageSymbolType(i));
 					if(averageSymbolType <= 3){
@@ -398,20 +410,23 @@
 				
 				function drawLongTermSymbol(i){
 					var SymbolType = json[kyz[i]].mainsymbol;
-					if(SymbolType <= 3){
-						var symbolImage = new Image();
-						symbolImage.onload = function(){
-							contextObjects[i].drawImage(symbolImage,0,0,80,80,(ColumnWidth/2)-20,10,40,40);
-							if(i >= kyz.length-1){ initClouds(); }
-						}
-						if(SymbolType == 0){
-							symbolImage.src = MoonImageFile;
+					var averageCloudCover = Math.round(getAverageCloudCover(i));
+					var symbolImage = new Image();
+					symbolImage.onload = function(){
+						contextObjects[i].save();
+						if(averageCloudCover > 50){
+							contextObjects[i].globalAlpha = 0;
 						} else {
-							symbolImage.src = SunImageFile;
+							contextObjects[i].globalAlpha = 1;
 						}
-						
-					} else {
+						contextObjects[i].drawImage(symbolImage,0,0,80,80,(ColumnWidth/2)-20,10,40,40);
+						contextObjects[i].restore();
 						if(i >= kyz.length-1){ initClouds(); }
+					}
+					if(SymbolType == 0){
+						symbolImage.src = MoonImageFile;
+					} else {
+						symbolImage.src = SunImageFile;
 					}
 				}
 				
@@ -428,9 +443,9 @@
 						contextObjects[i].drawImage(cloudImage,cloudPosValue,getRandY(),CW,CH,10+(xInc+getCloudRandXPos()),getCloudRandYPos(),CW2,CH2);
 						
 						//contextObjects[i].drawImage(cloudImage,getRandCloud(),getRandY(),CW,CH,xInc,getCloudRandYPos(),CW2,CH2);
-						if(json[kyz[i]].probability[j] > 0 && json[kyz[i]].rainMax[j] > 0){
+						if(json[kyz[i]].probability[j] > 0){
 							contextObjects[i].globalAlpha = getRainCloudAlpha(json[kyz[i]].probability[j],json[kyz[i]].rainMin[j],json[kyz[i]].rainMax[j]);
-							contextObjects[i].drawImage(cloudImage,cloudPosValue,getRandY()+CH,CW,CH,10+(xInc+getCloudRandXPos()),30,CW2,CH2);
+							contextObjects[i].drawImage(cloudImage,cloudPosValue,getRandY()+CH,CW,CH,10+(xInc+getCloudRandXPos()),getRandomArbitrary(26,38),CW2,CH2);
 						}
 						contextObjects[i].restore();
 						
@@ -438,7 +453,7 @@
 							if(rainDropDrawn == false){
 								if(json[kyz[i]].rainMax[j] > 2){
 									contextObjects[i].drawImage(rainImage,0,0,8,12,xInc+8,60,4,6);
-									contextObjects[i].drawImage(rainImage,0,0,8,12,xInc+14,65,4,6);
+									contextObjects[i].drawImage(rainImage,0,0,8,12,xInc+12,65,4,6);
 								} else {
 									contextObjects[i].drawImage(rainImage,0,0,8,12,xInc+8,60,4,6);
 								}
@@ -505,7 +520,7 @@
 	</div>
 	
 	<div id="ui-sizecontainer">
-		<div id="debugtext">Mockup: Png sprite - not blurred</div>
+		<div id="debugtext">Mockup: SVG with texture and blurred</div>
 		<div id="widthdown" class="sizeBtn">-</div>
 		<div id="widthup" class="sizeBtn">+</div>
 		<div id="dataswap" class="textBtn">New data</div>
