@@ -19,45 +19,234 @@
 		(function (){
 			window.addEventListener('load', function () {
 				var jsonData1 = {
-					"morning":{
-						"mainsymbol":	1,
-						"symbols":		[0,0,0,0,0,1],
-						"density":		[0,0,10,15,20,25],
-						"probability":	[0,0,0,0,0,0],
-						"rainMin":		[0,0,0,0,0,0],
-						"rainMax":		[0,0,0,0,0,0],
-						"dewPoint":		[0,0.1,0,0,0.1,0.1]
-					},
-					"afternoon":{
-						"mainsymbol":	1,
-						"symbols":		[1,1,1,1,1,1],
-						"density":		[25,25,20,20,25,30],
-						"probability":	[0,0,0,0,0,0],
-						"rainMin":		[0,0,0,0,0,0],
-						"rainMax":		[0,0,0,0,0,0],
-						"dewPoint":		[0,0,0,0,0,0.1]
-					},
-					"evening":{
+					"int1":{
 						"mainsymbol":	0,
-						"symbols":		[2,2,1,1,2,2],
-						"density":		[40,40,35,35,40,45],
+						"symbols":		[0,0,0,0,0,0],
+						"density":		[0,0,10,10,15,10],
 						"probability":	[0,0,0,0,0,0],
 						"rainMin":		[0,0,0,0,0,0],
 						"rainMax":		[0,0,0,0,0,0],
-						"dewPoint":		[0,0.1,0,0,0,0]
+						"dewPoint":		[0,0,0,0,0,0]
 					},
-					"night":{
+					"int2":{
 						"mainsymbol":	0,
-						"symbols":		[2,3,4,5,5,5],
-						"density":		[50,60,70,80,85,90],
-						"probability":	[10,10,20,40,60,70],
-						"rainMin":		[0,0,0,0.1,0.3,1],
-						"rainMax":		[0,0,0,2,2.5,3.6],
-						"dewPoint":		[0,0.2,0.2,0.3,0.4,0.5]
+						"symbols":		[0,0,0,0,0,0],
+						"density":		[15,20,15,15,20,15],
+						"probability":	[0,0,0,0,0,0],
+						"rainMin":		[0,0,0,0,0,0],
+						"rainMax":		[0,0,0,0,0,0],
+						"dewPoint":		[0,0,0,0,0,0]
+					},
+					"int3":{
+						"mainsymbol":	0,
+						"symbols":		[0,0,0,0,0,0],
+						"density":		[15,20,15,15,20,15],
+						"probability":	[0,0,0,0,0,0],
+						"rainMin":		[0,0,0,0,0,0],
+						"rainMax":		[0,0,0,0,0,0],
+						"dewPoint":		[0,0,0,0,0,0]
+					},
+					"int4":{
+						"mainsymbol":	0,
+						"symbols":		[0,0,0,0,0,0],
+						"density":		[0,5,5,0,0,0],
+						"probability":	[0,0,0,0,0,0],
+						"rainMin":		[0,0,0,0,0,0],
+						"rainMax":		[0,0,0,0,0,0],
+						"dewPoint":		[0,0,0,0,0,0]
+					},
+					"int5":{
+						"mainsymbol":	0,
+						"symbols":		[0,0,0,0,0,0],
+						"density":		[0,0,5,10,15,20],
+						"probability":	[0,0,0,0,0,0],
+						"rainMin":		[0,0,0,0,0,0],
+						"rainMax":		[0,0,0,0,0,0],
+						"dewPoint":		[0,0,0,0,0,0]
+					},
+					"int6":{
+						"mainsymbol":	1,
+						"symbols":		[0,0,0,0,0,0],
+						"density":		[20,20,25,25,25,30],
+						"probability":	[0,0,0,0,0,0],
+						"rainMin":		[0,0,0,0,0,0],
+						"rainMax":		[0,0,0,0,0,0],
+						"dewPoint":		[0,0,0,0,0,0]
+					},
+					"int7":{
+						"mainsymbol":	1,
+						"symbols":		[0,0,0,0,0,0],
+						"density":		[0,10,10,5,5,10],
+						"probability":	[0,0,0,0,0,0],
+						"rainMin":		[0,0,0,0,0,0],
+						"rainMax":		[0,0,0,0,0,0],
+						"dewPoint":		[0,0,0,0,0,0]
+					},
+					"int8":{
+						"mainsymbol":	1,
+						"symbols":		[0,0,0,0,0,0],
+						"density":		[10,10,10,15,15,15],
+						"probability":	[0,0,0,0,0,0],
+						"rainMin":		[0,0,0,0,0,0],
+						"rainMax":		[0,0,0,0,0,0],
+						"dewPoint":		[0,0,0,0,0,0]
+					},
+					"int9":{
+						"mainsymbol":	1,
+						"symbols":		[0,0,0,0,0,0],
+						"density":		[15,15,15,20,15,20],
+						"probability":	[0,0,0,0,0,0],
+						"rainMin":		[0,0,0,0,0,0],
+						"rainMax":		[0,0,0,0,0,0],
+						"dewPoint":		[0,0,0,0,0,0]
+					},
+					"int10":{
+						"mainsymbol":	1,
+						"symbols":		[0,0,0,0,0,0],
+						"density":		[25,25,25,30,30,25],
+						"probability":	[0,0,0,0,0,0],
+						"rainMin":		[0,0,0,0,0,0],
+						"rainMax":		[0,0,0,0,0,0],
+						"dewPoint":		[0,0,0,0,0,0]
+					},
+					"int11":{
+						"mainsymbol":	1,
+						"symbols":		[0,0,0,0,0,0],
+						"density":		[30,25,20,25,25,30],
+						"probability":	[0,0,0,0,0,0],
+						"rainMin":		[0,0,0,0,0,0],
+						"rainMax":		[0,0,0,0,0,0],
+						"dewPoint":		[0,0,0,0,0,0]
+					},
+					"int12":{
+						"mainsymbol":	1,
+						"symbols":		[0,0,0,0,0,0],
+						"density":		[20,20,20,25,25,25],
+						"probability":	[0,0,0,0,0,0],
+						"rainMin":		[0,0,0,0,0,0],
+						"rainMax":		[0,0,0,0,0,0],
+						"dewPoint":		[0,0,0,0,0,0]
+					},
+					"int13":{
+						"mainsymbol":	1,
+						"symbols":		[0,0,0,0,0,0],
+						"density":		[35,30,30,35,40,40],
+						"probability":	[10,25,25,15,20,10],
+						"rainMin":		[0,0,0,0,0,0],
+						"rainMax":		[0,0,0,0,0,0],
+						"dewPoint":		[0,0,0,0,0,0]
+					},
+					"int14":{
+						"mainsymbol":	1,
+						"symbols":		[0,0,0,0,0,0],
+						"density":		[45,40,40,45,45,45],
+						"probability":	[15,25,30,30,35,25],
+						"rainMin":		[0,0,0,0,0,0],
+						"rainMax":		[0,0,0,0,0,0],
+						"dewPoint":		[0,0,0,0,0,0]
+					},
+					"int15":{
+						"mainsymbol":	3,
+						"symbols":		[0,0,0,0,0,0],
+						"density":		[50,60,60,65,65,70],
+						"probability":	[15,25,30,30,35,25],
+						"rainMin":		[0,0,0,0,0,0],
+						"rainMax":		[0.1,0,0.1,0,0,0],
+						"dewPoint":		[0,0,0,0,0,0]
+					},
+					"int16":{
+						"mainsymbol":	3,
+						"symbols":		[0,0,0,0,0,0],
+						"density":		[70,70,70,75,65,60],
+						"probability":	[15,25,30,30,35,25],
+						"rainMin":		[0,0,0,0,0,0],
+						"rainMax":		[0,0,0,0,0,0],
+						"dewPoint":		[0,0,0,0,0,0]
+					},
+					"int16":{
+						"mainsymbol":	3,
+						"symbols":		[0,0,0,0,0,0],
+						"density":		[70,70,70,75,65,60],
+						"probability":	[15,25,30,30,35,25],
+						"rainMin":		[0,0,0,0,0,0],
+						"rainMax":		[0,0,0,0,0,0],
+						"dewPoint":		[0,0,0,0,0,0]
+					},
+					"int17":{
+						"mainsymbol":	3,
+						"symbols":		[0,0,0,0,0,0],
+						"density":		[60,60,60,55,55,50],
+						"probability":	[15,25,30,30,35,25],
+						"rainMin":		[0,0,0,0,0,0],
+						"rainMax":		[0,0,0,0,0,0],
+						"dewPoint":		[0,0,0,0,0,0]
+					},
+					"int18":{
+						"mainsymbol":	3,
+						"symbols":		[0,0,0,0,0,0],
+						"density":		[45,50,55,55,55,50],
+						"probability":	[15,25,30,30,35,25],
+						"rainMin":		[0,0,0,0,0,0],
+						"rainMax":		[0,0,0,0,0,0],
+						"dewPoint":		[0,0,0,0,0,0]
+					},
+					"int19":{
+						"mainsymbol":	3,
+						"symbols":		[0,0,0,0,0,0],
+						"density":		[55,60,75,75,85,70],
+						"probability":	[15,25,30,30,35,25],
+						"rainMin":		[0,0,0,0,0,0],
+						"rainMax":		[0,0,0,0,0,0],
+						"dewPoint":		[0,0,0,0,0,0]
+					},
+					"int20":{
+						"mainsymbol":	3,
+						"symbols":		[0,0,0,0,0,0],
+						"density":		[75,80,75,75,75,60],
+						"probability":	[15,25,30,30,35,25],
+						"rainMin":		[0,0,0,0,0,0],
+						"rainMax":		[0.1,0.2,0.4,0.4,0.2,0.1],
+						"dewPoint":		[0,0,0,0,0,0]
+					},
+					"int21":{
+						"mainsymbol":	3,
+						"symbols":		[0,0,0,0,0,0],
+						"density":		[75,80,75,75,75,60],
+						"probability":	[35,55,50,60,65,65],
+						"rainMin":		[0,0,0,0,0,0],
+						"rainMax":		[0.1,0.2,3,4,2,2],
+						"dewPoint":		[0,0,0,0,0,0]
+					},
+					"int22":{
+						"mainsymbol":	3,
+						"symbols":		[0,0,0,0,0,0],
+						"density":		[65,70,65,65,65,50],
+						"probability":	[35,45,40,50,55,55],
+						"rainMin":		[0,0,0,0,0,0],
+						"rainMax":		[0,0,0,0,0,0],
+						"dewPoint":		[0,0,0,0,0,0]
+					},
+					"int23":{
+						"mainsymbol":	3,
+						"symbols":		[0,0,0,0,0,0],
+						"density":		[65,70,65,65,65,50],
+						"probability":	[35,45,40,50,55,55],
+						"rainMin":		[0,0,0,0,0,0],
+						"rainMax":		[0,0,0,0,0,0],
+						"dewPoint":		[0,0,0,0,0,0]
+					},
+					"int24":{
+						"mainsymbol":	3,
+						"symbols":		[0,0,0,0,0,0],
+						"density":		[65,70,65,65,65,50],
+						"probability":	[35,45,40,50,55,55],
+						"rainMin":		[0,0,0,0,0,0],
+						"rainMax":		[0,0,0,0,0,0],
+						"dewPoint":		[0,0,0,0,0,0]
 					}
 				}
 				var jsonData2 = {
-					"morning":{
+					"int1":{
 						"mainsymbol":	1,
 						"symbols":		[5,5,4,4,5,5],
 						"density":		[60,50,30,30,60,70],
@@ -66,7 +255,7 @@
 						"rainMax":		[0.2,0,0,1,1.5,2.2],
 						"dewPoint":		[0.4,0.2,0.2,0.3,0.4,0.5]
 					},
-					"afternoon":{
+					"int2":{
 						"mainsymbol":	1,
 						"symbols":		[5,5,4,4,5,5],
 						"density":		[70,60,40,40,70,80],
@@ -75,7 +264,7 @@
 						"rainMax":		[1.2,0,0,2,2.5,3.6],
 						"dewPoint":		[0.4,0.2,0.2,0.3,0.4,0.5]
 					},
-					"evening":{
+					"int3":{
 						"mainsymbol":	0,
 						"symbols":		[5,5,4,4,5,5],
 						"density":		[80,70,50,50,80,90],
@@ -84,7 +273,7 @@
 						"rainMax":		[1.2,0,0,2,2.5,3.6],
 						"dewPoint":		[0.4,0.2,0.2,0.3,0.4,0.5]
 					},
-					"night":{
+					"int4":{
 						"mainsymbol":	0,
 						"symbols":		[5,5,4,4,5,5],
 						"density":		[80,70,50,50,80,90],
@@ -92,94 +281,18 @@
 						"rainMin":		[0.9,0,0,0.1,0.3,1],
 						"rainMax":		[1.2,0,0,2,2.5,3.6],
 						"dewPoint":		[0.4,0.2,0.2,0.3,0.4,0.5]
-					}
-				}
-				var jsonData3 = {
-					"morning":{
-						"mainsymbol":	1,
-						"symbols":		[5,5,4,4,5,5],
-						"density":		[60,50,30,30,60,70],
-						"probability":	[60,50,20,40,60,70],
-						"rainMin":		[0.9,0,0,0.1,0.3,1],
-						"rainMax":		[2.2,2.3,3,4,5,3.2],
-						"dewPoint":		[0.4,0.2,0.2,0.3,0.4,0.5]
-					},
-					"afternoon":{
-						"mainsymbol":	1,
-						"symbols":		[5,5,4,4,5,5],
-						"density":		[70,60,40,40,70,80],
-						"probability":	[60,50,20,40,60,70],
-						"rainMin":		[0.9,0,0,0.1,0.3,1],
-						"rainMax":		[1.2,0,0,2,2.5,3.6],
-						"dewPoint":		[0.4,0.2,0.2,0.3,0.4,0.5]
-					},
-					"evening":{
-						"mainsymbol":	0,
-						"symbols":		[3,3,2,2,2,1],
-						"density":		[50,30,30,80,70,80],
-						"probability":	[10,20,10,0,0,10],
-						"rainMin":		[0,0,0,0,0,0],
-						"rainMax":		[0,0,0,0,0,0],
-						"dewPoint":		[0.4,0.2,0.2,0.3,0.4,0.5]
-					},
-					"night":{
-						"mainsymbol":	0,
-						"symbols":		[1,1,0,0,0,0],
-						"density":		[10,10,0,0,0,0],
-						"probability":	[0,0,0,0,0,0],
-						"rainMin":		[0,0,0,0,0,0],
-						"rainMax":		[0,0,0,0,0,0],
-						"dewPoint":		[0,0,0,0,0,0]
-					}
-				}
-				var jsonData4 = {
-					"morning":{
-						"mainsymbol":	1,
-						"symbols":		[0,0,0,0,0,0],
-						"density":		[2,2,2,2,0,0],
-						"probability":	[0,0,0,0,0,0],
-						"rainMin":		[0,0,0,0,0,0],
-						"rainMax":		[0,0,0,0,0,0],
-						"dewPoint":		[0,0,0,0,0,0]
-					},
-					"afternoon":{
-						"mainsymbol":	1,
-						"symbols":		[0,0,0,0,0,0],
-						"density":		[2,2,2,2,0,0],
-						"probability":	[0,0,0,0,0,0],
-						"rainMin":		[0,0,0,0,0,0],
-						"rainMax":		[0,0,0,0,0,0],
-						"dewPoint":		[0,0,0,0,0,0]
-					},
-					"evening":{
-						"mainsymbol":	0,
-						"symbols":		[0,0,0,0,0,0],
-						"density":		[2,2,2,2,0,0],
-						"probability":	[0,0,0,0,0,0],
-						"rainMin":		[0,0,0,0,0,0],
-						"rainMax":		[0,0,0,0,0,0],
-						"dewPoint":		[0,0,0,0,0,0]
-					},
-					"night":{
-						"mainsymbol":	0,
-						"symbols":		[0,0,0,0,0,0],
-						"density":		[2,2,2,2,0,0],
-						"probability":	[0,0,0,0,0,0],
-						"rainMin":		[0,0,0,0,0,0],
-						"rainMax":		[0,0,0,0,0,0],
-						"dewPoint":		[0,0,0,0,0,0]
 					}
 				}
 				
 				var json = jsonData1;
 				
-				var ContainerWidth = 320; // Changing this value resets the rest..
+				var ContainerWidth = 1440; // Changing this value resets the rest..
 				var Columns = 4;
 				var ColumnWidth = 80;
 				var HourlyIntervals = 6;
 				var HourWidth = 13;
 				
-				var CloudImageFile = "images/clouds_sprite.png";
+				var CloudImageFile = "images/clouds_spriteV13.png"; // clouds_sprite.png
 				var RainImageFile = "images/raindropV3.png";
 				var SunImageFile = "images/sun_full.png";
 				var MoonImageFile = "images/moon_full.png";
@@ -208,7 +321,7 @@
 					HourlyIntervals = data[kyz[0]].symbols.length;
 					HourWidth = Math.floor(ColumnWidth/HourlyIntervals);
 					
-					CW = HourWidth*3;
+					CW = HourWidth*4;
 					CH = 60;
 					CW2 = CW/2;
 					CH2 = CH/2;
@@ -318,6 +431,9 @@
 					var item = arr[Math.floor(Math.random()*arr.length)];
 					return item;
 				}
+				function getRandomArbitrary(min, max) {
+				  return Math.random() * (max - min) + min;
+				}
 				function calcCloudCoords(value){
 					var result = new Array();
 					switch(true){
@@ -382,8 +498,18 @@
 					return symbolAverage;
 				}
 				
+				function getAverageCloudCover(i){
+					var cloudAverage = 0;
+					for( var d = 0; d < json[kyz[i]].density.length; d++ ){
+						cloudAverage += parseInt( json[kyz[i]].density[d], 10 );
+					}
+					cloudAverage = cloudAverage/json[kyz[i]].density.length;
+					return cloudAverage;
+				}
+				
 				function drawShortTermSymbol(i){
 					var averageSymbolType = Math.round(getAverageSymbolType(i));
+					var averageCloudCover = Math.round(getAverageCloudCover(i));
 					if(averageSymbolType <= 3){
 						var symbolImage = new Image();
 						symbolImage.onload = function(){
@@ -396,22 +522,26 @@
 					}
 				}
 				
+				// This function needs fixing onLoad problem with symbol drawing order on canvas..
 				function drawLongTermSymbol(i){
 					var SymbolType = json[kyz[i]].mainsymbol;
-					if(SymbolType <= 3){
-						var symbolImage = new Image();
-						symbolImage.onload = function(){
-							contextObjects[i].drawImage(symbolImage,0,0,80,80,(ColumnWidth/2)-20,10,40,40);
-							if(i >= kyz.length-1){ initClouds(); }
-						}
-						if(SymbolType == 0){
-							symbolImage.src = MoonImageFile;
+					var averageCloudCover = Math.round(getAverageCloudCover(i));
+					var symbolImage = new Image();
+					symbolImage.onload = function(){
+						contextObjects[i].save();
+						if(averageCloudCover > 50){
+							contextObjects[i].globalAlpha = 0;
 						} else {
-							symbolImage.src = SunImageFile;
+							contextObjects[i].globalAlpha = 1;
 						}
-						
-					} else {
+						contextObjects[i].drawImage(symbolImage,0,0,80,80,(ColumnWidth/2)-20,10,40,40);
+						contextObjects[i].restore();
 						if(i >= kyz.length-1){ initClouds(); }
+					}
+					if(SymbolType == 0){
+						symbolImage.src = MoonImageFile;
+					} else {
+						symbolImage.src = SunImageFile;
 					}
 				}
 				
@@ -428,9 +558,9 @@
 						contextObjects[i].drawImage(cloudImage,cloudPosValue,getRandY(),CW,CH,10+(xInc+getCloudRandXPos()),getCloudRandYPos(),CW2,CH2);
 						
 						//contextObjects[i].drawImage(cloudImage,getRandCloud(),getRandY(),CW,CH,xInc,getCloudRandYPos(),CW2,CH2);
-						if(json[kyz[i]].probability[j] > 0 && json[kyz[i]].rainMax[j] > 0){
+						if(json[kyz[i]].probability[j] > 0){
 							contextObjects[i].globalAlpha = getRainCloudAlpha(json[kyz[i]].probability[j],json[kyz[i]].rainMin[j],json[kyz[i]].rainMax[j]);
-							contextObjects[i].drawImage(cloudImage,cloudPosValue,getRandY()+CH,CW,CH,10+(xInc+getCloudRandXPos()),30,CW2,CH2);
+							contextObjects[i].drawImage(cloudImage,cloudPosValue,getRandY()+CH,CW,CH,10+(xInc+getCloudRandXPos()),getRandomArbitrary(26,38),CW2,CH2);
 						}
 						contextObjects[i].restore();
 						
@@ -438,7 +568,7 @@
 							if(rainDropDrawn == false){
 								if(json[kyz[i]].rainMax[j] > 2){
 									contextObjects[i].drawImage(rainImage,0,0,8,12,xInc+8,60,4,6);
-									contextObjects[i].drawImage(rainImage,0,0,8,12,xInc+14,65,4,6);
+									contextObjects[i].drawImage(rainImage,0,0,8,12,xInc+12,65,4,6);
 								} else {
 									contextObjects[i].drawImage(rainImage,0,0,8,12,xInc+8,60,4,6);
 								}
@@ -452,9 +582,10 @@
 				calculateWidths(json);
 				
 				/* DEMO STUFF */
+				var maxWidth = 1440;
 				document.getElementById("widthup").onclick=function(){
 					ContainerWidth = ContainerWidth+80;
-					if(ContainerWidth >= 768){ ContainerWidth = 768; }
+					if(ContainerWidth >= maxWidth){ ContainerWidth = maxWidth; }
 					calculateWidths(json);
 				};
 				document.getElementById("widthdown").onclick=function(){
@@ -462,7 +593,7 @@
 					if(ContainerWidth <= 320){ ContainerWidth = 320; }
 					calculateWidths(json);
 				};
-				var dataSources = [jsonData1,jsonData2,jsonData3,jsonData4];
+				var dataSources = [jsonData1,jsonData1];
 				var dataSourceInc = 0;
 				document.getElementById("dataswap").onclick=function(){
 					json = dataSources[dataSourceInc];
@@ -490,13 +621,53 @@
 <body>
 	
 	<div id="pageContainer" style="width:320px;">
-		<div class="temperaturecontainer">
+		<!--<div class="temperaturecontainer">
 			<div class="temperature bluetext">-1<span class="smalldegree">°</span></div>
 			<div class="temperature">1<span class="smalldegree">°</span></div>
 			<div class="temperature">3<span class="smalldegree">°</span></div>
 			<div class="temperature">2<span class="smalldegree">°</span></div>
-		</div>
+			<div class="temperature">4<span class="smalldegree">°</span></div>
+			<div class="temperature">5<span class="smalldegree">°</span></div>
+			<div class="temperature">5<span class="smalldegree">°</span></div>
+			<div class="temperature">5<span class="smalldegree">°</span></div>
+			<div class="temperature">5<span class="smalldegree">°</span></div>
+			<div class="temperature">5<span class="smalldegree">°</span></div>
+			<div class="temperature">5<span class="smalldegree">°</span></div>
+			<div class="temperature">5<span class="smalldegree">°</span></div>
+			<div class="temperature">5<span class="smalldegree">°</span></div>
+			<div class="temperature">5<span class="smalldegree">°</span></div>
+			<div class="temperature">5<span class="smalldegree">°</span></div>
+			<div class="temperature">5<span class="smalldegree">°</span></div>
+			<div class="temperature">5<span class="smalldegree">°</span></div>
+			<div class="temperature">5<span class="smalldegree">°</span></div>
+			<div class="temperature">5<span class="smalldegree">°</span></div>
+			<div class="temperature">5<span class="smalldegree">°</span></div>
+			<div class="temperature">5<span class="smalldegree">°</span></div>
+			<div class="temperature">5<span class="smalldegree">°</span></div>
+			<div class="temperature">5<span class="smalldegree">°</span></div>
+			<div class="temperature">5<span class="smalldegree">°</span></div>
+		</div>-->
 		<div id="symbolcontainer">
+			<canvas width="80" height="60" class="can_column"></canvas>
+			<canvas width="80" height="60" class="can_column"></canvas>
+			<canvas width="80" height="60" class="can_column"></canvas>
+			<canvas width="80" height="60" class="can_column"></canvas>
+			<canvas width="80" height="60" class="can_column"></canvas>
+			<canvas width="80" height="60" class="can_column"></canvas>
+			<canvas width="80" height="60" class="can_column"></canvas>
+			<canvas width="80" height="60" class="can_column"></canvas>
+			<canvas width="80" height="60" class="can_column"></canvas>
+			<canvas width="80" height="60" class="can_column"></canvas>
+			<canvas width="80" height="60" class="can_column"></canvas>
+			<canvas width="80" height="60" class="can_column"></canvas>
+			<canvas width="80" height="60" class="can_column"></canvas>
+			<canvas width="80" height="60" class="can_column"></canvas>
+			<canvas width="80" height="60" class="can_column"></canvas>
+			<canvas width="80" height="60" class="can_column"></canvas>
+			<canvas width="80" height="60" class="can_column"></canvas>
+			<canvas width="80" height="60" class="can_column"></canvas>
+			<canvas width="80" height="60" class="can_column"></canvas>
+			<canvas width="80" height="60" class="can_column"></canvas>
 			<canvas width="80" height="60" class="can_column"></canvas>
 			<canvas width="80" height="60" class="can_column"></canvas>
 			<canvas width="80" height="60" class="can_column"></canvas>
@@ -505,7 +676,7 @@
 	</div>
 	
 	<div id="ui-sizecontainer">
-		<div id="debugtext">Mockup: Png sprite - not blurred</div>
+		<div id="debugtext">Mockup: SVG with texture and blurred</div>
 		<div id="widthdown" class="sizeBtn">-</div>
 		<div id="widthup" class="sizeBtn">+</div>
 		<div id="dataswap" class="textBtn">New data</div>
