@@ -170,6 +170,44 @@
 						"dewPoint":		[0,0,0,0,0,0]
 					}
 				}
+				var jsonData5 = {
+					"morning":{
+						"mainsymbol":	-1,
+						"symbols":		[0,0,0,0,0,0],
+						"density":		[30,40,30,60,70,60],
+						"probability":	[50,60,50,60,50,60],
+						"rainMin":		[0,0,0,0,0,0],
+						"rainMax":		[1,1.2,0.1,0,0.2,0],
+						"dewPoint":		[0,0,0,0,0,0]
+					},
+					"afternoon":{
+						"mainsymbol":	-1,
+						"symbols":		[0,0,0,0,0,0],
+						"density":		[10,15,10,10,15,10],
+						"probability":	[10,0,0,10,0,0],
+						"rainMin":		[0,0,0,0,0,0],
+						"rainMax":		[0,0,0,0,0,0],
+						"dewPoint":		[0,0,0,0,0,0]
+					},
+					"evening":{
+						"mainsymbol":	-1,
+						"symbols":		[0,0,0,0,0,0],
+						"density":		[10,15,10,10,15,10],
+						"probability":	[10,10,0,10,10,10],
+						"rainMin":		[0,0,0,0,0,0],
+						"rainMax":		[0,0,0,0,0,0],
+						"dewPoint":		[0,0,0,0,0,0]
+					},
+					"night":{
+						"mainsymbol":	-1,
+						"symbols":		[0,0,0,0,0,0],
+						"density":		[30,40,30,60,70,60],
+						"probability":	[40,60,50,60,70,80],
+						"rainMin":		[0,0,0,0,0,0],
+						"rainMax":		[0.3,0.6,0,0,2,2],
+						"dewPoint":		[0,0,0,0,0,0]
+					}
+				}
 				
 				var json = jsonData1;
 				
@@ -183,6 +221,7 @@
 				var RainImageFile = "images/raindropV3.png";
 				var SunImageFile = "images/sun_full.png";
 				var MoonImageFile = "images/moon_full.png";
+				var NoSymbol = "images/no_symbol.png";
 				
 				var kyz = "";
 				var cloudImage;
@@ -425,7 +464,9 @@
 					}
 					if(SymbolType == 0){
 						symbolImage.src = MoonImageFile;
-					} else {
+					} else if(SymbolType == -1){
+						symbolImage.src = NoSymbol;
+					}  else {
 						symbolImage.src = SunImageFile;
 					}
 				}
@@ -477,7 +518,7 @@
 					if(ContainerWidth <= 320){ ContainerWidth = 320; }
 					calculateWidths(json);
 				};
-				var dataSources = [jsonData1,jsonData2,jsonData3,jsonData4];
+				var dataSources = [jsonData1,jsonData2,jsonData3,jsonData4,jsonData5];
 				var dataSourceInc = 0;
 				document.getElementById("dataswap").onclick=function(){
 					json = dataSources[dataSourceInc];
