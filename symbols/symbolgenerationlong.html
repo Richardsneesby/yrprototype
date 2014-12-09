@@ -292,7 +292,7 @@
 				var HourlyIntervals = 6;
 				var HourWidth = 13;
 				
-				var CloudImageFile = "images/clouds_spriteV13.png"; // clouds_sprite.png
+				var CloudImageFile = "images/clouds_spriteV2.png";
 				var RainImageFile = "images/raindropV3.png";
 				var SunImageFile = "images/sun_full.png";
 				var MoonImageFile = "images/moon_fullV2.png";
@@ -513,7 +513,7 @@
 					if(averageSymbolType <= 3){
 						var symbolImage = new Image();
 						symbolImage.onload = function(){
-							contextObjects[i].drawImage(symbolImage,0,0,80,80,(ColumnWidth/2)-20,10,40,40);
+							contextObjects[i].drawImage(symbolImage,0,0,84,84,(ColumnWidth/2)-20,10,42,42);
 							if(i >= kyz.length-1){ initClouds(); }
 						}
 						symbolImage.src = SunImageFile;
@@ -676,7 +676,7 @@
 	</div>
 	
 	<div id="ui-sizecontainer">
-		<div id="debugtext">Mockup: SVG with texture and blurred</div>
+		<div id="debugtext">Mockup: Png sprite - blurred</div>
 		<div id="widthdown" class="sizeBtn">-</div>
 		<div id="widthup" class="sizeBtn">+</div>
 		<div id="dataswap" class="textBtn">New data</div>
