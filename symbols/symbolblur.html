@@ -19,7 +19,9 @@
 		(function (){
 			window.addEventListener('load', function () {
 				
-				//
+				/*var circle = d3.selectAll("circle");
+				circle.style("fill", "steelblue");
+				circle.attr("r", 30);*/
 				
 			});
 		})();
@@ -29,20 +31,54 @@
 </head>
 <body>
 	
-	<div id="pageContainer" style="width:320px;">
+	<svg id="cloudDefs" style="display:none;">
+		<symbol id="cloud-high-1">
+			<path d="M39.7,8.7c-0.8-1.9-3.1-3.3-5.8-3.3c-0.3,0-0.6,0-0.9,0C31.3,3.9,28.8,3,25.9,3c-1,0-2,0.1-2.9,0.4c-1.6-2-4.6-3.3-7.9-3.3
+				C10.6,0,6.8,2.4,6,5.6C3.3,5.7,1,7,0.3,8.9C0.1,9.3,0,9.7,0,10.2c0,2.5,2.7,4.6,6.1,4.6c1.8,0,3.5-0.6,4.6-1.6
+				c1.3,0.5,2.8,0.8,4.4,0.8c1,0,2-0.1,2.9-0.4c1.6,2,4.6,3.3,7.9,3.3c2.8,0,5.4-1,7.1-2.4c0.3,0,0.6,0,0.9,0c3.4,0,6.1-2.1,6.1-4.6
+				C40,9.5,39.9,9.1,39.7,8.7z"/>
+		</symbol>
+		<symbol id="cloud-high-2">
+			<path d="M39.8,6.6C39,2.8,35.1,0,30.4,0c-3.5,0-6.5,1.5-8.2,3.8c-1.3-0.8-3-1.2-4.8-1.2c-2.9,0-5.4,1.2-6.8,2.9
+	C9.5,5,8.3,4.7,6.9,4.7c-3.2,0-5.9,1.6-6.7,3.9C0.1,9,0,9.5,0,10c0,2.9,3.1,5.3,6.9,5.3c2.1,0,4.1-0.7,5.3-1.9
+	c1.4,0.9,3.2,1.4,5.1,1.4c2.2,0,4.1-0.7,5.5-1.7c1.8,1.8,4.4,2.9,7.4,2.9c5.3,0,9.6-3.6,9.6-8C40,7.5,39.9,7,39.8,6.6z"/>
+		</symbol>
+	</svg>
+	
+	<svg id="cloudFills">
 		<defs>
-			<pattern id="img1" patternUnits="userSpaceOnUse" width="180" height="100">
-			<image xlink:href="images/cloud_text.png" x="0" y="0" width="180" height="100" />
+			<pattern id="tex1" patternUnits="userSpaceOnUse" width="45" height="25">
+				<image xlink:href="images/cloud_text2_light.png" x="0" y="0" width="45" height="25" />
 			</pattern>
+			<pattern id="tex2" patternUnits="userSpaceOnUse" width="45" height="25">
+				<image xlink:href="images/cloud_text2.png" x="0" y="0" width="45" height="25" />
+			</pattern>
+			<filter id="blur1" x="0" y="0">
+				<feGaussianBlur in="SourceGraphic" stdDeviation="1.4" />
+		    </filter>
+		    <filter id="shadow1">
+				<feGaussianBlur in="SourceAlpha" stdDeviation="0"/>
+				<feOffset dx="0" dy="2" result="offsetblur"/>
+				<feFlood flood-color="rgba(0,0,0,0.2)"/>
+				<feComposite in2="offsetblur" operator="in"/>
+				<feMerge>
+				<feMergeNode/>
+				<feMergeNode in="SourceGraphic"/>
+				</feMerge>
+			</filter>
 		</defs>
-		<path d="M5,50
-		l0,100 l100,0 l0,-100 l-100,0
-		M215,100
-		a50,50 0 1 1 -100,0 50,50 0 1 1 100,0
-		M265,50
-		l50,100 l-100,0 l50,-100
-		z"
-		fill="url(#img1)" />
+	</svg>
+	
+	<div id="pageContainer" style="width:320px;">
+		<svg x="0px" y="0px" width="40px" height="17px" viewBox="0 0 42 19" fill="url(#tex2)" filter="url(#blur1)" opacity="0.7">
+			<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#cloud-high-1" x="0" y="0" width="40" height="17"></use>
+		</svg>
+		<svg x="0px" y="0px" width="40px" height="17px" viewBox="0 0 42 19" fill="url(#tex2)" filter="url(#blur1)" opacity="0.5" style="margin-left: -10px">
+			<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#cloud-high-2" x="0" y="0" width="40" height="17" transform="translate(0,0) scale(1) rotate(0)"></use>
+		</svg>
+		<svg x="0px" y="0px" width="40px" height="17px" viewBox="0 0 42 19" fill="url(#tex1)" filter="url(#shadow1)" opacity="1" style="margin-left: -10px">
+			<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#cloud-high-1" x="0" y="0" width="40" height="17" transform="translate(0,0) scale(1) rotate(0)"></use>
+		</svg>
 	</div>
 	
 	<div id="ui-sizecontainer">

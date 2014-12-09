@@ -151,7 +151,7 @@
 						"density":		[50,60,60,65,65,70],
 						"probability":	[15,25,30,30,35,25],
 						"rainMin":		[0,0,0,0,0,0],
-						"rainMax":		[0.1,0,0.1,0,0,0],
+						"rainMax":		[0.1,0.1,0.1,0.1,0,0],
 						"dewPoint":		[0,0,0,0,0,0]
 					},
 					"int16":{
@@ -295,7 +295,7 @@
 				var CloudImageFile = "images/clouds_spriteV13.png"; // clouds_sprite.png
 				var RainImageFile = "images/raindropV3.png";
 				var SunImageFile = "images/sun_full.png";
-				var MoonImageFile = "images/moon_full.png";
+				var MoonImageFile = "images/moon_fullV2.png";
 				
 				var kyz = "";
 				var cloudImage;
@@ -534,7 +534,7 @@
 						} else {
 							contextObjects[i].globalAlpha = 1;
 						}
-						contextObjects[i].drawImage(symbolImage,0,0,80,80,(ColumnWidth/2)-20,10,40,40);
+						contextObjects[i].drawImage(symbolImage,0,0,84,84,(ColumnWidth/2)-20,10,42,42);
 						contextObjects[i].restore();
 						if(i >= kyz.length-1){ initClouds(); }
 					}
