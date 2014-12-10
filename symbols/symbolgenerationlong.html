@@ -286,16 +286,19 @@
 				
 				var json = jsonData1;
 				
-				var ContainerWidth = 1440; // 320 // Changing this value resets the rest..
+				var ContainerWidth = 1440; // 2880 // Changing this value resets the rest..
 				var Columns = 4;
 				var ColumnWidth = 80;
 				var HourlyIntervals = 6;
 				var HourWidth = 13;
 				
+				var SymbolSize = 42; // 84
+				
 				var CloudImageFile = "images/clouds_spriteV2.png";
 				var RainImageFile = "images/raindropV3.png";
 				var SunImageFile = "images/sun_full.png";
 				var MoonImageFile = "images/moon_fullV2.png";
+				var NoSymbol = "images/no_symbol.png";
 				
 				var kyz = "";
 				var cloudImage;
@@ -338,7 +341,7 @@
 					var CanvasElem = document.getElementsByClassName("can_column");					
 					for(var x=0; x < CanvasElem.length; x++) {
 						CanvasElem[x].width = ColumnWidth+30;
-						CanvasElem[x].height = 80;
+						CanvasElem[x].height = 94;
 						if(x > 0){
 							CanvasElem[x].style.marginLeft = "-30px";
 							//d3.select(".temperature").style("margin-left", 0+"px");
@@ -365,8 +368,7 @@
 						canvasObjects.push(thisCanvas);
 						contextObjects.push(thisContext);
 						
-						//drawShortTermSymbol(i); // Gets average of integers
-						drawLongTermSymbol(i); // gets single integer value
+						drawLongTermSymbol(i);
 					}
 				}
 				
@@ -381,31 +383,6 @@
 				}
 				
 				// Randomizers..
-				var RandYvalues = [0,1,2,3,4,5]; // [0,1,2,3,4,5,61,62,63,64,65];
-				function getRandY(){
-					var item = RandYvalues[Math.floor(Math.random()*RandYvalues.length)];
-					return item;
-				}
-				var RandCloudvalues = [0,40,80,120,160,200,240,280,320,360,400,440,480,520,560,600,640,680,720,760];
-				function getRandCloud(){
-					var item = RandCloudvalues[Math.floor(Math.random()*RandCloudvalues.length)];
-					return item;
-				}
-				var CloudRandXPos = [-10,-9,-8,-7,-6,-5,-4,-3,-2,-1,0,1,2,3,4,5,6,7,8,9,10];
-				function getCloudRandXPos(){
-					var item = CloudRandXPos[Math.floor(Math.random()*CloudRandXPos.length)];
-					return item;
-				}
-				var CloudRandYPos = [10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30];
-				function getCloudRandYPos(){
-					var item = CloudRandYPos[Math.floor(Math.random()*CloudRandYPos.length)];
-					return item;
-				}
-				var RandBlendModes = ["xor","darker"];
-				function getRandBlendMode(){
-					var item = RandBlendModes[Math.floor(Math.random()*RandBlendModes.length)];
-					return item;
-				}
 				var RandRotatevalues = [-5,-4,-3,-2,-1,0,1,2,3,4,5];
 				function getRandRotate(){
 					var item = RandRotatevalues[Math.floor(Math.random()*RandRotatevalues.length)];
@@ -507,22 +484,6 @@
 					return cloudAverage;
 				}
 				
-				function drawShortTermSymbol(i){
-					var averageSymbolType = Math.round(getAverageSymbolType(i));
-					var averageCloudCover = Math.round(getAverageCloudCover(i));
-					if(averageSymbolType <= 3){
-						var symbolImage = new Image();
-						symbolImage.onload = function(){
-							contextObjects[i].drawImage(symbolImage,0,0,84,84,(ColumnWidth/2)-20,10,42,42);
-							if(i >= kyz.length-1){ initClouds(); }
-						}
-						symbolImage.src = SunImageFile;
-					} else {
-						if(i >= kyz.length-1){ initClouds(); }
-					}
-				}
-				
-				// This function needs fixing onLoad problem with symbol drawing order on canvas..
 				function drawLongTermSymbol(i){
 					var SymbolType = json[kyz[i]].mainsymbol;
 					var averageCloudCover = Math.round(getAverageCloudCover(i));
@@ -534,7 +495,7 @@
 						} else {
 							contextObjects[i].globalAlpha = 1;
 						}
-						contextObjects[i].drawImage(symbolImage,0,0,84,84,(ColumnWidth/2)-20,10,42,42);
+						contextObjects[i].drawImage(symbolImage,0,0,84,84,(ColumnWidth/2)-(SymbolSize/2),10,SymbolSize,SymbolSize);
 						contextObjects[i].restore();
 						if(i >= kyz.length-1){ initClouds(); }
 					}
@@ -555,12 +516,12 @@
 						contextObjects[i].save();
 						contextObjects[i].globalAlpha = 0.8;
 						contextObjects[i].rotate(getRandRotate()*Math.PI/180);
-						contextObjects[i].drawImage(cloudImage,cloudPosValue,getRandY(),CW,CH,10+(xInc+getCloudRandXPos()),getCloudRandYPos(),CW2,CH2);
+						contextObjects[i].drawImage(cloudImage,cloudPosValue,getRandomArbitrary(0,5),CW,CH,10+(xInc+getRandomArbitrary(-10,10)),getRandomArbitrary(10,30),CW2,CH2);
 						
 						//contextObjects[i].drawImage(cloudImage,getRandCloud(),getRandY(),CW,CH,xInc,getCloudRandYPos(),CW2,CH2);
 						if(json[kyz[i]].probability[j] > 0){
 							contextObjects[i].globalAlpha = getRainCloudAlpha(json[kyz[i]].probability[j],json[kyz[i]].rainMin[j],json[kyz[i]].rainMax[j]);
-							contextObjects[i].drawImage(cloudImage,cloudPosValue,getRandY()+CH,CW,CH,10+(xInc+getCloudRandXPos()),getRandomArbitrary(26,38),CW2,CH2);
+							contextObjects[i].drawImage(cloudImage,cloudPosValue,getRandomArbitrary(0,5)+CH,CW,CH,10+(xInc+getRandomArbitrary(-10,10)),getRandomArbitrary(26,38),CW2,CH2);
 						}
 						contextObjects[i].restore();
 						
