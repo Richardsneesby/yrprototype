@@ -286,13 +286,13 @@
 				
 				var json = jsonData1;
 				
-				var ContainerWidth = 1440; // 2880 // Changing this value resets the rest..
+				var ContainerWidth = 2880; // 1440 // Changing this value resets the rest..
 				var Columns = 4;
 				var ColumnWidth = 80;
 				var HourlyIntervals = 6;
 				var HourWidth = 13;
 				
-				var SymbolSize = 42; // 84
+				var SymbolSize = 84; // 42
 				
 				var CloudImageFile = "images/clouds_spriteV2.png";
 				var RainImageFile = "images/raindropV3.png";
@@ -324,7 +324,7 @@
 					HourlyIntervals = data[kyz[0]].symbols.length;
 					HourWidth = Math.floor(ColumnWidth/HourlyIntervals);
 					
-					CW = HourWidth*4;
+					CW = 40; // CW = HourWidth*3;
 					CH = 60;
 					CW2 = CW/2;
 					CH2 = CH/2;
@@ -341,7 +341,7 @@
 					var CanvasElem = document.getElementsByClassName("can_column");					
 					for(var x=0; x < CanvasElem.length; x++) {
 						CanvasElem[x].width = ColumnWidth+30;
-						CanvasElem[x].height = 94;
+						CanvasElem[x].height = 144;
 						if(x > 0){
 							CanvasElem[x].style.marginLeft = "-30px";
 							//d3.select(".temperature").style("margin-left", 0+"px");
@@ -501,7 +501,9 @@
 					}
 					if(SymbolType == 0){
 						symbolImage.src = MoonImageFile;
-					} else {
+					} else if(SymbolType == -1){
+						symbolImage.src = NoSymbol;
+					}  else {
 						symbolImage.src = SunImageFile;
 					}
 				}
@@ -509,29 +511,42 @@
 				function drawCloud(i,j,xInc){
 					var cloudArrInd = calcCloudCoords(json[kyz[i]].density[j])[0];
 					var cloudPosValue = getRandCloudPos(cloudPositions[cloudArrInd]);
-					
-					//contextObjects[i].globalCompositeOperation = getRandBlendMode(); // doesn't work multiple times?
 					var rainDropDrawn = false;
 					for(var z=0; z < calcCloudCoords(json[kyz[i]].density[j])[1]; z++) {
 						contextObjects[i].save();
 						contextObjects[i].globalAlpha = 0.8;
 						contextObjects[i].rotate(getRandRotate()*Math.PI/180);
-						contextObjects[i].drawImage(cloudImage,cloudPosValue,getRandomArbitrary(0,5),CW,CH,10+(xInc+getRandomArbitrary(-10,10)),getRandomArbitrary(10,30),CW2,CH2);
+						contextObjects[i].drawImage(cloudImage,
+													cloudPosValue,
+													0,
+													40,
+													60,
+													10+(xInc+getRandomArbitrary(-10,10)),
+													getRandomArbitrary(10,50),
+													CW,
+													CH);
 						
-						//contextObjects[i].drawImage(cloudImage,getRandCloud(),getRandY(),CW,CH,xInc,getCloudRandYPos(),CW2,CH2);
 						if(json[kyz[i]].probability[j] > 0){
 							contextObjects[i].globalAlpha = getRainCloudAlpha(json[kyz[i]].probability[j],json[kyz[i]].rainMin[j],json[kyz[i]].rainMax[j]);
-							contextObjects[i].drawImage(cloudImage,cloudPosValue,getRandomArbitrary(0,5)+CH,CW,CH,10+(xInc+getRandomArbitrary(-10,10)),getRandomArbitrary(26,38),CW2,CH2);
+							contextObjects[i].drawImage(cloudImage,
+														cloudPosValue,
+														60,
+														40,
+														60,
+														10+(xInc+getRandomArbitrary(-10,10)),
+														getRandomArbitrary(50,58),
+														CW,
+														CH);
 						}
 						contextObjects[i].restore();
 						
 						if(json[kyz[i]].probability[j] > 0 && json[kyz[i]].rainMax[j] > 0){
 							if(rainDropDrawn == false){
 								if(json[kyz[i]].rainMax[j] > 2){
-									contextObjects[i].drawImage(rainImage,0,0,8,12,xInc+8,60,4,6);
-									contextObjects[i].drawImage(rainImage,0,0,8,12,xInc+12,65,4,6);
+									contextObjects[i].drawImage(rainImage,0,0,8,12,xInc+8,120,8,12);
+									contextObjects[i].drawImage(rainImage,0,0,8,12,xInc+12,130,8,12);
 								} else {
-									contextObjects[i].drawImage(rainImage,0,0,8,12,xInc+8,60,4,6);
+									contextObjects[i].drawImage(rainImage,0,0,8,12,xInc+8,120,8,12);
 								}
 								rainDropDrawn = true;
 							}
@@ -539,7 +554,7 @@
 					}
 					
 				}
-								
+							
 				calculateWidths(json);
 				
 				/* DEMO STUFF */
