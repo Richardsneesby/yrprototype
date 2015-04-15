@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en" class="no-js">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"/>
+	<meta name="apple-mobile-web-app-capable" content="yes">
+
+	<link rel="stylesheet" href="css/main.css">
+	<link rel="stylesheet" href="css/icons.css">
+	
+	<script src="js/modernizr.js"></script>
+	<script src="js/d3.min.js"></script>
+	
+	<style type="text/css">
+	
+		#detailBtnContainer {
+			position: fixed;
+			display: block;
+			right:10px;
+			bottom:10px;
+		}
+		
+	</style>
+  	
+	<title>YR - Test detail</title>
+	<meta name="description" content="yr prototype">
+	<meta name="author" content="Richard Park Sneesby">
+	<meta name="keywords" content="symbol design prototype">
+	
+	<script type="text/javascript">
+		
+		(function (){
+			window.addEventListener('load', function () {
+				
+				var IconShowing = false;
+				
+				window.addEventListener("scroll", function () {
+					detailIcon();
+				}, false);
+				
+				function detailIcon(){
+					if(getScrollPos() >= 290){
+						showIcon();
+					} else {
+						hideIcon();
+					}
+				}
+				
+				function showIcon(){
+					if(IconShowing == false){
+						d3.select("#detailBtnContainer")
+						.style("bottom", "0px");
+						d3.select("#detailBtnContainer")
+						.transition()
+						.duration(200)
+						.style("opacity", 100)
+						.style("bottom", "10px");
+						IconShowing = true;
+					}
+				}
+				
+				function hideIcon(){
+					d3.select("#detailBtnContainer")
+					.style("bottom", "10px");
+					d3.select("#detailBtnContainer")
+					.transition()
+					.duration(200)
+					.style("opacity", 0)
+					.style("bottom", "0px");
+					IconShowing = false;
+				}
+				
+				function getScrollPos() {
+					return window.pageYOffset;
+				}
+				
+				function setScrollPos(offset) {
+					return function() {
+						var i = d3.interpolateNumber(window.pageYOffset || document.documentElement.scrollTop, offset);
+						return function(t) { scrollTo(0, i(t)); };
+					};
+				}
+				
+				d3.select("#detailBtnContainer")
+				.transition()
+				.duration(0)
+				.style("opacity", 0);
+				
+			});
+		})();
+		
+	</script>
+	
+</head>
+<body style="background-color: #E6E6E6;">
+	
+	<div id="container">
+		
+    	<div id="page-content">
+	    	<div id="concept-prognosis" class="concept-holder">
+		    	
+		    	<div id="table-swap-container" style="margin-top:0px;">
+			    	<img id="page-concept-view" src="images/test_detail1.png"/>
+			    </div>
+				
+		    	<div id="table-swap-container" style="margin-top:0px;">
+			    	<img id="page-concept-view" src="images/test_detail2.png"/>
+			    </div>
+			    
+			    <div id="detailBtnContainer">
+				    <img id="detailBtn" style="height:40px; width:40px;" src="images/test_detail3.png"/>
+			    </div>
+				
+			</div>
+			
+    	</div>
+	</div>
+	
+</body>
+</html>
