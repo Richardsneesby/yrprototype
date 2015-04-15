@@ -85,6 +85,14 @@
 				.transition()
 				.duration(0)
 				.style("opacity", 0);
+								
+				var toggleImage = function () {
+					//alert("sfgsftg");
+				}
+				
+				var detailSymbol = document.getElementById("detailBtnContainer");
+				detailSymbol.addEventListener("click", toggleImage, false);
+
 				
 			});
 		})();
@@ -98,17 +106,13 @@
 		
     	<div id="page-content">
 	    	<div id="concept-prognosis" class="concept-holder">
-		    	
+				
 		    	<div id="table-swap-container" style="margin-top:0px;">
 			    	<img id="page-concept-view" src="images/test_detail1.png"/>
 			    </div>
-				
-		    	<div id="table-swap-container" style="margin-top:0px;">
-			    	<img id="page-concept-view" src="images/test_detail2.png"/>
-			    </div>
 			    
 			    <div id="detailBtnContainer">
-				    <img id="detailBtn" style="height:40px; width:40px;" src="images/test_detail3.png"/>
+				    <img id="detailBtn" style="height:56px; width:56px;" src="images/test_detail2.png"/>
 			    </div>
 				
 			</div>
